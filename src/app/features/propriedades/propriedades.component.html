@@ -1,0 +1,17 @@
+<div class="px-5">
+    <app-custom-table 
+    [title]="'Propriedades'"
+    [columns]="columns"
+    [data]="propriedades"
+    [loading]="isLoadingResults"
+    [totalCount]="totalCount"
+    [pageSize]="pageSize"
+    [showRefreshButton]="true"
+    [showAddButton]="true"
+    (refresh)="getPropriedades()"
+    (addNew)="openEditDialog()"
+    (pageChange)="onPageChange($event)"
+    (sortChange)="onSortChange($event)"
+    (rowClick)="openEditDialog($event)"
+    (deleteItem)="onDelete($event)"/>
+</div>

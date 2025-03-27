@@ -1,0 +1,10 @@
+<div class="alert alert-primary mt-2 p-3 mx-4 shadow-none d-flex align-items-center justify-content-center text-justify mt-5 mb-3 mx-2"
+    role="alert">
+    <mat-icon class="mx-3">info</mat-icon>
+    @if(!title){
+    <span class="ps-2 pe-2">There is no data</span>
+    }
+    @if(title != ''){
+    <span class="ps-2 pe-2">{{title}}</span>
+    }
+</div>

@@ -1,0 +1,36 @@
+
+$primary-color: #145581;
+$accent-color: #1ec8a5;
+
+mat-drawer-container {
+  height: 100% !important;
+}
+
+
+.mat-drawer-content {
+  background-color: 'red' !important;
+}
+
+mat-icon {
+  font-size: 35px !important;
+  width: 50px !important;
+  height: 50px !important;
+  color: $primary-color !important;
+}
+
+button {
+  color: $primary-color !important;
+  height: 50px !important;
+}
+
+.active-link {
+  background-color: #e6e9f1;
+}
+
+.drawer-low-z-index {
+  z-index: 0 !important;
+}
+
+.example-container {
+  height: calc(100vh - 64px) !important;
+}

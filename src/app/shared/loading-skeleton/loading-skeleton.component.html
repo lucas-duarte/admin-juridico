@@ -1,0 +1,6 @@
+@if(busy){
+    <div class="loading-skeleton {{class}}" [style]="'width: ' + width + '; height: ' + height + '; border-radius: ' + borderRadius + ''">
+</div>
+} @else {
+    <ng-content />
+}

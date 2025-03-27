@@ -1,0 +1,30 @@
+.border-bottom {
+  height: 60px !important;
+}
+
+.border {
+  border-width: 2px !important;
+  border-color: #e0e0e0 !important;
+}
+
+.border-bottom {
+    border-color: #e0e0e0 !important;
+    color: #5a5a5a;
+    font-weight: 500 !important;
+}
+
+.title {
+    color: #5a5a5a;
+    font-weight: 500 !important;
+    height: 60px !important;
+    border-top: 2px solid #e0e0e0 !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+body {
+  background-color: white !important;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

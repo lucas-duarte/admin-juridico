@@ -1,0 +1,94 @@
+<div class="px-5 py-2">
+
+    <div class="bg-white mt-5 shadow rounded p-4 mb-5">
+        @if(!editTitle){
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="title fs-5 mb-0"><b>{{tese.descricao}}</b></p>
+                <p class="m-0 p-0 fw-lighter">ID {{tese.rowKey}}</p>
+            </div>
+            <div class="d-flex align-items-center">
+                <mat-chip class="mx-3">Correções - {{tese.correcoes}}</mat-chip>
+                <mat-chip [class]="tese.publicado ? 'publicado' : ''">
+                    {{(tese.publicado ? 'Publicado' : 'Não Publicado')}} - V{{tese.versao}}
+                </mat-chip>
+                <button mat-fab class="shadow-none ms-5 me-3 text-center" (click)="editTitle = true">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-fab extended class="shadow-none me-3" (click)="editTitle = true">
+                    <mat-icon>edit_note</mat-icon>Questionario
+                </button>
+            </div>
+        </div>
+        } @else {
+        <form [formGroup]="form">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="w-100">
+                    <mat-form-field class="w-75" appearance="outline">
+                        <mat-label>Input</mat-label>
+                        <input matInput formControlName="descricao">
+                    </mat-form-field>
+                    <mat-slide-toggle formControlName="publicado" class="ms-5">Publicar </mat-slide-toggle>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <button mat-fab class="shadow-none" (click)="editTitle = false">
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                    <button mat-fab class="shadow-none mx-3" (click)="submit()">
+                        <mat-icon>save</mat-icon>
+                    </button>
+                </div>
+
+            </div>
+        </form>
+        }
+    </div>
+
+    <div class="bg-white mt-5  rounded p-4 mb-5 shadow">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="title fs-4 mb-2">TESES</p>
+            </div>
+            <button mat-fab class="shadow-none" routerLink='/teses/form/{{tese.rowKey}}'>
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <mat-accordion>
+            @for (regra of tese.regras; track $index) {
+
+            <mat-expansion-panel class="border border-dark-subtle rounded my-3 shadow-none" #panel>
+                <mat-expansion-panel-header style="height: 60px;"
+                    [class]="panel.expanded ? 'border-dark-subtle border-bottom rounded-0' : ''">
+                    <mat-panel-title class="title">{{regra.descricao}}</mat-panel-title>
+                    <mat-panel-description>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="row mt-3 p-2 d-flex align-items-center">
+                    <div class="col">
+                        <p class="mb-1">Fato</p>
+                        <div class="border rounded p-3 fw-lighter">{{regra.fato}}</div>
+                    </div>
+                    <div class="col">
+                        <p class="mb-1">Fundamento</p>
+                        <div class="border rounded p-3 fw-lighter">{{regra.fundamento}}</div>
+                    </div>
+                    <div class="col">
+                        <p class="mb-1">Pedido</p>
+                        <div class="border rounded p-3 fw-lighter">{{regra.pedido}}</div>
+                    </div>
+                    <div class="col-1 text-end">
+                        <button mat-fab class="shadow-none">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-fab class="shadow-none ms-3">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+
+                </div>
+            </mat-expansion-panel>
+            }
+        </mat-accordion>
+    </div>
+</div>

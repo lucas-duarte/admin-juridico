@@ -1,0 +1,14 @@
+
+
+<div cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListSortingDisabled
+    [cdkDropListEnterPredicate]="noReturnPredicate" (cdkDropListExited)="onSourceListExited($event)"
+    (cdkDropListEntered)="onSourceListEntered($event)" class="components-panel py-3">
+
+    @for (item of propriedades; track $index) {
+    <button mat-fab extended style="width: 100%;" class="bg-white my-1" [disableRipple]="true" cdkDrag
+        [cdkDragData]="item.fieldType">
+        <mat-icon aria-hidden="false">{{item.fieldType?.icon}}</mat-icon>
+        {{item.rowKey | camelCaseToWords}}
+    </button>
+    }
+</div>

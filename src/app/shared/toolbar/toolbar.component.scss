@@ -1,0 +1,21 @@
+@use './../../styles/variables.scss' as var;
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.name {
+  margin-top: 10px;
+}
+.email {
+  color: var.$primary-color;
+  margin-top: -10px;
+}
+
+mat-icon {
+  color: white;
+}
+
+.logout {
+  color: var.$primary-color !important;
+}

@@ -1,0 +1,10 @@
+@switch (activeView$ | async) {
+@case('field-type-list')
+{
+<div class="d-flex justify-content-center align-items-center h-100"> Selecione um campo para configurar</div>
+}
+@case('field-type-config')
+{
+<app-field-type-config />
+}
+}

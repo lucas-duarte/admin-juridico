@@ -1,0 +1,22 @@
+<mat-toolbar  class="shadow">
+    <button mat-icon-button (click)="emitterMenu()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <div class="ms-5">ADMIN JURIDICO</div>
+
+    <span class="spacer"></span>
+    @if(!busy){
+    <button mat-button aria-label="person" [matMenuTriggerFor]="menu">
+        {{userData!.firstName}} {{userData!.lastName}}
+        <mat-icon>person</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item class="menu" routerLink="perfil">
+            <mat-icon>person</mat-icon>
+            <p class="name">{{userData!.firstName}} {{userData!.lastName}}</p>
+            <p class="email">{{userData!.email}}</p>
+        </button>
+        <button mat-menu-item (click)="logout()"><mat-icon class="logout">logout</mat-icon>Sair</button>
+    </mat-menu>
+    }
+</mat-toolbar>
