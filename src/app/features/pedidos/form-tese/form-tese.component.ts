@@ -1,4 +1,4 @@
-import { Component, importProvidersFrom, inject, OnInit } from '@angular/core';
+import { Component, ElementRef, importProvidersFrom, inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TeseData } from '../../../core/models/tese';
 import { TeseService } from '../../../core/services/teste/tese.service';
@@ -8,23 +8,74 @@ import { RegrasData } from '../../../core/models/regras';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
+import { RegraComponent } from "./regra/regra.component";
+import { FormBuilderService } from '../../../core/services/form-builder/form-builder.service';
+import { MatIconModule } from '@angular/material/icon';
+import { CamelCaseToWordsPipe } from "../../../core/pipes/camel-case-to-words";
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-form-tese',
-  imports: [QuillModule, FormsModule, MatDialogModule, MatButtonModule, MatTabsModule ],
+  imports: [QuillModule, FormsModule, MatDialogModule, MatButtonModule, MatTabsModule, RegraComponent, MatIconModule, CamelCaseToWordsPipe, MatTooltipModule],
   templateUrl: './form-tese.component.html',
   styleUrl: './form-tese.component.scss'
 })
-export class FormTeseComponent implements OnInit {
-  
+export class FormTeseComponent {
+  @ViewChild('dialogBody') dialogBodyRef!: ElementRef;
+  @ViewChild('propriedadesDiv') propriedadesDivRef!: ElementRef;
+
   readonly dialogRef = inject(MatDialogRef<FormTeseComponent>);
+  readonly formBuilderService = inject(FormBuilderService);
   readonly regra = inject<RegrasData>(MAT_DIALOG_DATA) ?? {} as RegrasData;
 
-  ngOnInit(): void {
-   
+  quillInstances: { [key: string]: any } = {};
+  editorAtivo: string = 'fato';
+
+  ngAfterViewInit(): void {
+    const bodyHeight = this.dialogBodyRef.nativeElement.clientHeight;
+    const alturaPropriedades = bodyHeight - 100;
+    this.propriedadesDivRef.nativeElement.style.maxHeight = `${alturaPropriedades}px`;
+    this.propriedadesDivRef.nativeElement.style.overflowY = 'auto';
+  }
+
+  get propriedades() {
+    return this.formBuilderService.allPropriedades
+  }
+
+  onEditorCreated(tipo: 'fato' | 'fundamento' | 'pedido', quill: any) {
+    this.quillInstances[tipo] = quill;
+  }
+
+  setEditorAtivo(tipo: 'fato' | 'fundamento' | 'pedido') {
+    this.editorAtivo = tipo;
+  }
+
+  inserirReferencia(referencia: string) {
+    const editor = this.quillInstances[this.editorAtivo];
+    if (editor) {
+      const pos = editor.getSelection(true);
+      editor.insertText(pos?.index ?? 0, referencia);
+      editor.setSelection((pos?.index ?? 0) + referencia.length);
+    }
+  }
+
+  onTabChange(event: any) {
+    const index = event.index;
+    switch (index) {
+      case 0:
+        this.editorAtivo = 'fato';
+        break;
+      case 1:
+        this.editorAtivo = 'fundamento';
+        break;
+      case 2:
+        this.editorAtivo = 'pedido';
+        break;
+    }
   }
 
   submit(): void {
     this.dialogRef.close(this.regra);
   }
+
 }

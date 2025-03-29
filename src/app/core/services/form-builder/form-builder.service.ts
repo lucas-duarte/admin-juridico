@@ -175,7 +175,7 @@ export class FormBuilderService {
           fieldClone.config.props.label = p.descricao;
           fieldClone.config.key = p.rowKey;
         }
-
+        
         return {
           ...p,
           fieldType: fieldClone
@@ -183,6 +183,7 @@ export class FormBuilderService {
       })
 
       this.propriedades = [...this.allPropriedades];
+
 
       this.updatePropriedade();
     });

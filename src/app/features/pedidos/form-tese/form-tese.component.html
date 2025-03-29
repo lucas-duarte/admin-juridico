@@ -1,38 +1,70 @@
 <h2 mat-dialog-title class="title fs-5 mb-0">
   <b>{{ regra.descricao }}</b>
 </h2>
-<mat-dialog-content>
-  <hr />
+<mat-dialog-content #dialogBody>
   <div class="row">
-    <div class="col-8">
-      <mat-tab-group>
+    <div class="col-4">
+      <app-regra />
+    </div>
+    <div class="col-6">
+      <mat-tab-group class="border border-dark-subtle rounded" (selectedTabChange)="onTabChange($event)">
         <mat-tab label="Fato">
           <quill-editor
-            class="pt-4 w-100"
+            class="p-2 w-100"
             [(ngModel)]="regra.fato"
-            [styles]="{ 'min-height': '250px' }"
+            [styles]="{ 'min-height': '500px' }"
             [placeholder]="'Digite aqui o fato...'"
+            (onEditorCreated)="onEditorCreated('fato', $event)"
+            (focus)="setEditorAtivo('fato')"
           />
         </mat-tab>
         <mat-tab label="Fundamento">
           <quill-editor
-            class="pt-4 w-100"
+            class="p-2 w-100"
             [(ngModel)]="regra.fundamento"
-            [styles]="{ 'min-height': '250px' }"
+            [styles]="{ 'min-height': '500px' }"
             [placeholder]="'Digite aqui o fundamento...'"
+            (onEditorCreated)="onEditorCreated('fundamento', $event)"
+            (focus)="setEditorAtivo('fundamento')"
           />
         </mat-tab>
         <mat-tab label="Pedido">
           <quill-editor
-            class="pt-4 w-100"
+            class="p-2 w-100"
             [(ngModel)]="regra.pedido"
-            [styles]="{ 'min-height': '250px' }"
+            [styles]="{ 'min-height': '500px' }"
             [placeholder]="'Digite aqui o pedido...'"
+            (onEditorCreated)="onEditorCreated('pedido', $event)"
+            (focus)="setEditorAtivo('pedido')"
           />
         </mat-tab>
       </mat-tab-group>
     </div>
-    <div class="col-4"></div>
+    <div class="col-2">
+      <div
+        class="border border-dark-subtle rounded h-100 d-flex flex-column justify-content-between"
+      >
+        <p class="d-flex align-items-center border-bottom ps-4 titulo">
+          Propriedades
+        </p>
+        <div class="p-3" #propriedadesDiv>
+          @for (item of propriedades; track $index) {
+          <button
+            mat-fab
+            extended
+            style="width: 100%"
+            class="rounded-2 bg-transparent my-1 shadow-none border"
+            [disableRipple]="true"
+            [matTooltip]="item.referencia"
+            (click)="inserirReferencia(item.referencia)"
+          >
+            <mat-icon aria-hidden="false">{{ item.fieldType?.icon }}</mat-icon>
+            {{ item.rowKey | camelCaseToWords }}
+          </button>
+          }
+        </div>
+      </div>
+    </div>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>

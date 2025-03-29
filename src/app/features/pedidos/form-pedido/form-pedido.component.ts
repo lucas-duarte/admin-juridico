@@ -106,7 +106,8 @@ export class FormPedidoComponent implements OnInit {
       data: regra,
       minWidth: '100%',
       height: 'auto',
-      minHeight: 'auto',
+      minHeight: '800px',
+      maxHeight: '100%',
       panelClass: 'p-5'
     });
 
