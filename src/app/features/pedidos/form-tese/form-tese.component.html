@@ -23,6 +23,7 @@
             class="p-2 w-100"
             [(ngModel)]="regra.fundamento"
             [styles]="{ 'min-height': '500px' }"
+
             [placeholder]="'Digite aqui o fundamento...'"
             (onEditorCreated)="onEditorCreated('fundamento', $event)"
             (focus)="setEditorAtivo('fundamento')"
@@ -41,9 +42,7 @@
       </mat-tab-group>
     </div>
     <div class="col-2">
-      <div
-        class="border border-dark-subtle rounded h-100 d-flex flex-column justify-content-between"
-      >
+      <div class="border border-dark-subtle rounded h-100 d-flex flex-column justify-content-between">
         <p class="d-flex align-items-center border-bottom ps-4 titulo">
           Propriedades
         </p>
@@ -56,8 +55,7 @@
             class="rounded-2 bg-transparent my-1 shadow-none border"
             [disableRipple]="true"
             [matTooltip]="item.referencia"
-            (click)="inserirReferencia(item.referencia)"
-          >
+            (click)="inserirReferencia(item.referencia)">
             <mat-icon aria-hidden="false">{{ item.fieldType?.icon }}</mat-icon>
             {{ item.rowKey | camelCaseToWords }}
           </button>

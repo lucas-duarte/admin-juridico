@@ -1,4 +1,6 @@
-<div class="border border-dark-subtle rounded h-100 d-flex flex-column justify-content-between">
+<div
+  class="border border-dark-subtle rounded h-100 d-flex flex-column justify-content-between"
+>
   <form [formGroup]="form">
     <p class="d-flex align-items-center border-bottom ps-4 titulo">Regras</p>
     <div formArrayName="filtros" class="p-3">
@@ -10,9 +12,9 @@
         <mat-form-field class="m-1 w-100">
           <mat-label>Campo</mat-label>
           <mat-select formControlName="campo">
-            <mat-option *ngFor="let campo of campos" [value]="campo">{{
-              campo
-            }}</mat-option>
+            <mat-option *ngFor="let campo of campos" [value]="campo">
+              {{ campo.rowKey | camelCaseToWords }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
 
@@ -26,9 +28,18 @@
         </mat-form-field>
 
         <mat-form-field class="m-1 w-100">
-          <mat-label>Valor</mat-label>
-          <input matInput formControlName="valor" />
-        </mat-form-field>
+            <mat-label>Valor</mat-label>          
+            <ng-container *ngIf="filtro.get('campo')?.value?.fieldType?.config?.type === 'radio'; else inputDefault">
+              <mat-select formControlName="valor">
+                <mat-option *ngFor="let opc of filtro.get('campo')?.value?.fieldType?.config?.props?.options" [value]="opc.value">
+                  {{ opc.label }}
+                </mat-option>
+              </mat-select>
+            </ng-container>          
+            <ng-template #inputDefault>
+              <input matInput formControlName="valor" />
+            </ng-template>
+          </mat-form-field>
 
         <mat-form-field class="m-1 w-75" *ngIf="i < filtros.length - 1">
           <mat-label>Condição</mat-label>

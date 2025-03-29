@@ -50,7 +50,7 @@
             <div>
                 <p class="title fs-4 mb-2">TESES</p>
             </div>
-            <button mat-fab class="shadow-none" routerLink='/teses/form/{{tese.rowKey}}'>
+            <button mat-fab class="shadow-none" (click)="openDialog()">
                 <mat-icon>add</mat-icon>
             </button>
         </div>

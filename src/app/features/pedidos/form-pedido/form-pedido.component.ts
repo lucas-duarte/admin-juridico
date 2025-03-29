@@ -101,7 +101,7 @@ export class FormPedidoComponent implements OnInit {
     })
   }
 
-  openDialog(regra: RegrasData): void {
+  openDialog(regra?: RegrasData): void {
     const dialogRef = this.dialog.open(FormTeseComponent, {
       data: regra,
       minWidth: '100%',
