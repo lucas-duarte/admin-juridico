@@ -11,6 +11,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TeseData } from '../../../core/models/tese';
 import { TeseService } from '../../../core/services/teste/tese.service';
+import { FormTeseComponent } from '../form-tese/form-tese.component';
+import { MatDialog } from '@angular/material/dialog';
+import { RegrasData } from '../../../core/models/regras';
 
 @Component({
   selector: 'app-form-pedido',
@@ -26,7 +29,7 @@ export class FormPedidoComponent implements OnInit {
   editTitle = false;
   busy = false;
 
-  constructor(private teseService: TeseService, private activeRoute: ActivatedRoute, private formBuilder: FormBuilder, private zone: NgZone) { }
+  constructor(private teseService: TeseService, private activeRoute: ActivatedRoute, private formBuilder: FormBuilder, private dialog : MatDialog) { }
 
   ngOnInit(): void {
     this.onInitForm();
@@ -44,10 +47,8 @@ export class FormPedidoComponent implements OnInit {
   getTese() {
     this.teseService.getById(this.rowKey).subscribe({
       next: (response) => {
-        console.log(response)
         if (response.isSuccess) {
           this.tese = response.result
-
           this.form.patchValue({
             descricao: this.tese.descricao,
             publicado: this.tese.publicado,
@@ -98,5 +99,22 @@ export class FormPedidoComponent implements OnInit {
         this.busy = false;
       },
     })
+  }
+
+  openDialog(regra: RegrasData): void {
+    const dialogRef = this.dialog.open(FormTeseComponent, {
+      data: regra,
+      minWidth: '100%',
+      height: 'auto',
+      minHeight: 'auto',
+      panelClass: 'p-5'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result !== undefined) {
+        
+      }
+    });
   }
 }

@@ -9,7 +9,7 @@ export const routes: Routes = [
             { path: 'teses/form/:id', loadComponent: () => import('./features/pedidos/form-tese/form-tese.component').then(c => c.FormTeseComponent) },
             { path: 'propriedades', loadComponent: () => import('./features/propriedades/propriedades.component').then(c => c.PropriedadesComponent) },
             { path: 'questionario', loadComponent: () => import('./features/questionario/questionario.component').then(c => c.QuestionarioComponent) },
-            { path: '', redirectTo: 'teses', pathMatch: 'full' }
+            { path: '', redirectTo: 'pedidos', pathMatch: 'full' }
         ]
     }
 ];

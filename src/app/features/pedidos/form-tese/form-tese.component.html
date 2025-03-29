@@ -1,17 +1,43 @@
-<div class="px-5 py-2">
-    <div class="bg-white mt-5 shadow rounded p-4 mb-5">
-        <div class="d-flex justify-content-between align-items-center">
-            <div>
-                <p class="title fs-5 mb-0"><b>{{tese.descricao}}</b></p>
-                <p class="m-0 p-0 fw-lighter">ID {{tese.rowKey}}</p>
-            </div>
-            <div class="d-flex align-items-center">
-                teste
-            </div>
-        </div>
-        <hr>
-
-        <app-editor-field />
+<h2 mat-dialog-title class="title fs-5 mb-0">
+  <b>{{ regra.descricao }}</b>
+</h2>
+<mat-dialog-content>
+  <hr />
+  <div class="row">
+    <div class="col-8">
+      <mat-tab-group>
+        <mat-tab label="Fato">
+          <quill-editor
+            class="pt-4 w-100"
+            [(ngModel)]="regra.fato"
+            [styles]="{ 'min-height': '250px' }"
+            [placeholder]="'Digite aqui o fato...'"
+          />
+        </mat-tab>
+        <mat-tab label="Fundamento">
+          <quill-editor
+            class="pt-4 w-100"
+            [(ngModel)]="regra.fundamento"
+            [styles]="{ 'min-height': '250px' }"
+            [placeholder]="'Digite aqui o fundamento...'"
+          />
+        </mat-tab>
+        <mat-tab label="Pedido">
+          <quill-editor
+            class="pt-4 w-100"
+            [(ngModel)]="regra.pedido"
+            [styles]="{ 'min-height': '250px' }"
+            [placeholder]="'Digite aqui o pedido...'"
+          />
+        </mat-tab>
+      </mat-tab-group>
     </div>
-
-</div>
+    <div class="col-4"></div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button cdkFocusInitial (click)="submit()">
+    {{ regra ? "Atualizar" : "Adicionar" }}
+  </button>
+</mat-dialog-actions>

@@ -1,5 +1,4 @@
 @use "./app/styles/variables.scss" as var;
-
 @use "@angular/material" as mat;
 
 // Customize the entire app. Change :root to your selector if you want to scope the styles.
@@ -32,11 +31,12 @@
     )
   );
 
-  @include mat.expansion-overrides((
-    container-background-color: white,
-    // container-text-color: red,
-  ));
-
+  @include mat.expansion-overrides(
+    (
+      container-background-color: white,
+      // container-text-color: red,
+    )
+  );
 }
 
 html,
@@ -48,5 +48,3 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #eeeeee;
 }
-
-

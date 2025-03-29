@@ -1,7 +1,7 @@
 import { RegrasData } from "./regras"
 
 export interface TeseData {
-    descricao: string
+  descricao: string
   versao: number
   correcoes: number
   questionarioAsJson: string

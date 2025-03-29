@@ -78,7 +78,7 @@
                         <div class="border rounded p-3 fw-lighter">{{regra.pedido}}</div>
                     </div>
                     <div class="col-1 text-end">
-                        <button mat-fab class="shadow-none">
+                        <button mat-fab class="shadow-none" (click)="openDialog(regra)">
                             <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-fab class="shadow-none ms-3">
