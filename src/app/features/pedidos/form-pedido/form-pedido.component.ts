@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
@@ -118,9 +118,9 @@ export class FormPedidoComponent implements OnInit {
       data: this.tese,
       minWidth: '100%',
       height: 'auto',
-      minHeight: '100%',
+      minHeight: '98vh',
       maxHeight: '100%',
-      panelClass: 'p-5'
+      panelClass: 'p-2'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -128,7 +128,6 @@ export class FormPedidoComponent implements OnInit {
       if (result) {
         this.questionarioAsJson = JSON.stringify(result); 
         this.submit(); 
-        // this.formBuilderService.loadFormFieldsFromJson([])
       }
     });
   }
@@ -144,7 +143,6 @@ export class FormPedidoComponent implements OnInit {
     this.busy = true;
     this.teseService.update(this.rowKey, data).subscribe({
       next: (response) => {
-        
         if (response.isSuccess) {
           this.tese = response.result
         }

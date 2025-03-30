@@ -48,3 +48,9 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #eeeeee;
 }
+
+@media (max-width: 1920px) {
+  html {
+    font-size: 14px; /* em vez de 16px */
+  }
+}

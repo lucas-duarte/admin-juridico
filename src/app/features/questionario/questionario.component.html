@@ -1,9 +1,9 @@
 <h2 mat-dialog-title class="title fs-5 mb-0">
   <b>{{ tese.descricao }}</b>
 </h2>
-<mat-dialog-content class="h-100">
+<div style="overflow: auto; max-height: 85vh;">
   <app-form-builder />
-</mat-dialog-content>
+</div>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancelar</button>
   <button mat-button cdkFocusInitial (click)="onSubmit()">

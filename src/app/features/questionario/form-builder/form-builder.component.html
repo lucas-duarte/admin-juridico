@@ -19,7 +19,6 @@
                     </mat-slide-toggle>
                 </div>
                 <div class="col-12 py-3">
-
                     @if(displayForm){
                         <form [formGroup]="form" (ngSubmit)="onSubmit(model)">
                             <formly-form [form]="form" [fields]="schemaFields" [model]="model"></formly-form>
@@ -28,7 +27,6 @@
                     } @else {
                         <app-form-container />
                     }
-
                 </div>
             </div>
         </div>
@@ -41,14 +39,14 @@
                     <app-panel-field-type-config />
                 </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-12 title d-flex align-items-center">
                     OBJETO FORMULARIO
                 </div>
                 <div class="col-12">
                     <pre class="pt-3" style="max-height: 500px;">{{ schemaFields | json }}</pre>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
