@@ -46,8 +46,7 @@ export class ExpressionComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
-
+      this.ngOnInit();
     });
   }
   parseExpressionToConditions(expr: string): any[] {

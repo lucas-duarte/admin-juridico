@@ -145,9 +145,7 @@ export class FormBuilderService {
   loadFormFieldsFromJson(jsonString: string) {
     try {
       const parsed = JSON.parse(jsonString);
-      this.formFields = parsed.map((f: any, index: number) => ({
-        field: { id: `field_${index + 1}`, ...f }
-      }));
+      this.formFields = parsed;
       this.persistFormFields(); // se quiser manter no sessionStorage
       this.updatePropriedade(); // atualiza propriedades disponíveis
     } catch (e) {
@@ -189,7 +187,7 @@ export class FormBuilderService {
           fieldClone.config.props.label = p.descricao;
           fieldClone.config.key = p.rowKey;
         }
-        
+
         return {
           ...p,
           fieldType: fieldClone
@@ -203,7 +201,7 @@ export class FormBuilderService {
     });
   }
 
-  private updatePropriedade(){
+  private updatePropriedade() {
     const keysInFormFields = this.formFields.map(item => item.field.key);
     this.propriedades = this.allPropriedades.filter(p => !keysInFormFields.includes(p.rowKey));
   }
