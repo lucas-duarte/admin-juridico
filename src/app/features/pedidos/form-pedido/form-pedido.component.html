@@ -15,7 +15,7 @@
                 <button mat-fab class="shadow-none ms-5 me-3 text-center" (click)="editTitle = true">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-fab extended class="shadow-none me-3" (click)="editTitle = true">
+                <button mat-fab extended class="shadow-none me-3" (click)="openDialogQuestionario()">
                     <mat-icon>edit_note</mat-icon>Questionario
                 </button>
             </div>
@@ -50,7 +50,7 @@
             <div>
                 <p class="title fs-4 mb-2">TESES</p>
             </div>
-            <button mat-fab class="shadow-none" (click)="openDialog()">
+            <button mat-fab class="shadow-none" (click)="openDialogRegra()">
                 <mat-icon>add</mat-icon>
             </button>
         </div>
@@ -66,19 +66,23 @@
                 </mat-expansion-panel-header>
                 <div class="row mt-3 p-2 d-flex align-items-center">
                     <div class="col">
+                        <p class="mb-1">Condição</p>
+                        <div class="border rounded p-3 fw-lighter" [innerHTML]="regra.condicao"></div>
+                    </div>
+                    <div class="col">
                         <p class="mb-1">Fato</p>
-                        <div class="border rounded p-3 fw-lighter">{{regra.fato}}</div>
+                        <div class="border rounded p-3 fw-lighter" [innerHTML]="regra.fato"></div>
                     </div>
                     <div class="col">
                         <p class="mb-1">Fundamento</p>
-                        <div class="border rounded p-3 fw-lighter">{{regra.fundamento}}</div>
+                        <div class="border rounded p-3 fw-lighter"  [innerHTML]="regra.fundamento"></div>
                     </div>
                     <div class="col">
                         <p class="mb-1">Pedido</p>
-                        <div class="border rounded p-3 fw-lighter">{{regra.pedido}}</div>
+                        <div class="border rounded p-3 fw-lighter" [innerHTML]="regra.pedido"></div>
                     </div>
                     <div class="col-1 text-end">
-                        <button mat-fab class="shadow-none" (click)="openDialog(regra)">
+                        <button mat-fab class="shadow-none" (click)="openDialogRegra(regra)">
                             <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-fab class="shadow-none ms-3">

@@ -4,7 +4,7 @@
 <mat-dialog-content #dialogBody>
   <div class="row">
     <div class="col-4">
-      <app-regra [regra]="regra"/>
+      <app-regra [regra]="regra" (regraUpdated)="getRegraUpdated($event)"/>
     </div>
     <div class="col-6">
       <mat-tab-group class="border border-dark-subtle rounded" (selectedTabChange)="onTabChange($event)">

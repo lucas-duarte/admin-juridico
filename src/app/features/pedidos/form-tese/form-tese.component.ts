@@ -74,6 +74,10 @@ export class FormTeseComponent {
     }
   }
 
+  getRegraUpdated(regra: string) {
+    this.regra.condicao = regra;
+  }
+
   submit(): void {
     this.dialogRef.close(this.regra);
   }

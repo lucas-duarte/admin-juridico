@@ -14,6 +14,8 @@ import { TeseService } from '../../../core/services/teste/tese.service';
 import { FormTeseComponent } from '../form-tese/form-tese.component';
 import { MatDialog } from '@angular/material/dialog';
 import { RegrasData } from '../../../core/models/regras';
+import { QuestionarioComponent } from '../../questionario/questionario.component';
+import { FormBuilderService } from '../../../core/services/form-builder/form-builder.service';
 
 @Component({
   selector: 'app-form-pedido',
@@ -29,7 +31,7 @@ export class FormPedidoComponent implements OnInit {
   editTitle = false;
   busy = false;
 
-  constructor(private teseService: TeseService, private activeRoute: ActivatedRoute, private formBuilder: FormBuilder, private dialog : MatDialog) { }
+  constructor(private teseService: TeseService, private activeRoute: ActivatedRoute, private formBuilder: FormBuilder, private dialog : MatDialog, private formBuilderService: FormBuilderService) { }
 
   ngOnInit(): void {
     this.onInitForm();
@@ -53,7 +55,6 @@ export class FormPedidoComponent implements OnInit {
             descricao: this.tese.descricao,
             publicado: this.tese.publicado,
           });
-
         }
       }, error(err) {
         console.log(err)
@@ -77,31 +78,12 @@ export class FormPedidoComponent implements OnInit {
     return this.tese.questionarioAsJson
   }
 
-  submit() {
-
-    const data = {
-      descricao: this.descricao,
-      questionarioAsJson: this.questionarioAsJson,
-      regrasAsJson: this.regras,
-      publicado: this.publicado
-    }
-    this.busy = true;
-
-    this.teseService.update(this.rowKey, data).subscribe({
-      next: (response) => {
-
-        if (response.isSuccess) {
-          this.tese = response.result
-        }
-        this.busy = false;
-      }, error: (err) => {
-        console.log(err)
-        this.busy = false;
-      },
-    })
+  set questionarioAsJson(valor: string) {
+    this.tese.questionarioAsJson = valor;
   }
 
-  openDialog(regra?: RegrasData): void {
+  
+  openDialogRegra(regra?: RegrasData): void {
     const dialogRef = this.dialog.open(FormTeseComponent, {
       data: regra,
       minWidth: '100%',
@@ -113,9 +95,64 @@ export class FormPedidoComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      if (result !== undefined) {
-        
+      if (result) {
+        const index = this.tese.regras.findIndex(r => r.descricao === result.descricao);
+
+        if (index !== -1) {
+          this.tese.regras[index] = result;
+        } else {
+          this.tese.regras.push(result);
+        }  
+        this.submit(); 
       }
     });
+  }
+
+  openDialogQuestionario(): void {
+
+    if (this.tese.questionarioAsJson && this.formBuilderService) {
+      this.formBuilderService.loadFormFieldsFromJson(this.tese.questionarioAsJson);
+    }
+
+    const dialogRef = this.dialog.open(QuestionarioComponent, {
+      data: this.tese,
+      minWidth: '100%',
+      height: 'auto',
+      minHeight: '100%',
+      maxHeight: '100%',
+      panelClass: 'p-5'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result) {
+        this.questionarioAsJson = JSON.stringify(result); 
+        this.submit(); 
+        // this.formBuilderService.loadFormFieldsFromJson([])
+      }
+    });
+  }
+
+  submit() {
+
+    const data = {
+      descricao: this.descricao,
+      questionarioAsJson: this.questionarioAsJson,
+      regras: this.regras,
+      publicado: this.publicado
+    }
+    this.busy = true;
+    this.teseService.update(this.rowKey, data).subscribe({
+      next: (response) => {
+        
+        if (response.isSuccess) {
+          this.tese = response.result
+        }
+        this.busy = false;
+      }, error: (err) => {
+        console.log(err)
+        this.busy = false;
+      },
+    })
   }
 }

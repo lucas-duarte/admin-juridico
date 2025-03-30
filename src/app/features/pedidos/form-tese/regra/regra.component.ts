@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,14 +16,13 @@ import { RegrasData } from '../../../../core/models/regras';
   templateUrl: './regra.component.html',
   styleUrl: './regra.component.scss'
 })
-export class RegraComponent implements OnInit {
+export class RegraComponent {
 
   @Input() regra!: RegrasData;
+  @Output() regraUpdated = new EventEmitter<string>();
   readonly formBuilderService = inject(FormBuilderService);
 
-
   form: FormGroup;
-
 
   get campos() {
     return this.formBuilderService.allPropriedades;
@@ -47,14 +46,21 @@ export class RegraComponent implements OnInit {
     this.form = this.fb.group({
       filtros: this.fb.array([this.novoFiltro()])
     });
+
+    this.form.valueChanges.subscribe(() => {
+      this.regraUpdated.emit(this.gerarOdataQuery())
+    })
   }
 
-  ngOnInit(): void {
-    const condicao = this.regra.condicao;
-    if (condicao) {
-      this.loadCondicoesFromOData(condicao);
-    }
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      const condicao = this.regra.condicao;
+      if (condicao) {
+        this.loadCondicoesFromOData(condicao);
+      }
+    }, 100);
   }
+  
 
   get filtros() {
     return this.form.get('filtros') as FormArray;
@@ -76,16 +82,6 @@ export class RegraComponent implements OnInit {
   removerFiltro(index: number) {
     this.filtros.removeAt(index);
   }
-
-  // gerarOdataQuery(): string {
-  //   const filtros = this.filtros.value;
-  //   return filtros.map((f: any, index: number) => {
-  //     const fieldKey = f.campo?.rowKey ?? '';
-  //     const val = isNaN(f.valor) ? `'${f.valor}'` : f.valor;
-  //     const cond = index < filtros.length - 1 ? ` ${f.condicao} ` : '';
-  //     return `${fieldKey} ${f.operador} ${val}${cond}`;
-  //   }).join('');
-  // }
 
   gerarOdataQuery(): string {
     const filtros = this.filtros.value;

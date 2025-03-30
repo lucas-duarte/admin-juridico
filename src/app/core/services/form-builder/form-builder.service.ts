@@ -91,7 +91,7 @@ export class FormBuilderService {
   counter = 0;
 
   constructor(private propriedadesService: PropriedadesService) {
-    this.loadFormFields();
+    // this.loadFormFields();
     this.getPropriedades();
   }
 
@@ -132,12 +132,26 @@ export class FormBuilderService {
     sessionStorage.setItem("formFields", JSON.stringify(this.formFields));
   }
 
-  loadFormFields() {
-    if (typeof sessionStorage !== 'undefined') {
-      let formFields = sessionStorage.getItem('formFields');
-      if (formFields && formFields.length) {
-        this.formFields = JSON.parse(formFields);
-      }
+  //   para salvar no storege
+  // loadFormFields() {
+  //   if (typeof sessionStorage !== 'undefined') {
+  //     let formFields = sessionStorage.getItem('formFields');
+  //     if (formFields && formFields.length) {
+  //       this.formFields = JSON.parse(formFields);
+  //     }
+  //   }
+  // }
+
+  loadFormFieldsFromJson(jsonString: string) {
+    try {
+      const parsed = JSON.parse(jsonString);
+      this.formFields = parsed.map((f: any, index: number) => ({
+        field: { id: `field_${index + 1}`, ...f }
+      }));
+      this.persistFormFields(); // se quiser manter no sessionStorage
+      this.updatePropriedade(); // atualiza propriedades disponíveis
+    } catch (e) {
+      console.error('Erro ao fazer parse do questionarioAsJson:', e);
     }
   }
 
