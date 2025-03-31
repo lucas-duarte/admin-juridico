@@ -1,12 +1,13 @@
-<h2 mat-dialog-title class="title fs-5 mb-0">
-  <b>{{ tese.descricao }}</b>
-</h2>
-<div style="overflow: auto; max-height: 85vh;">
-  <app-form-builder />
-</div>
-<mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-button cdkFocusInitial (click)="onSubmit()">
-    {{ tese ? "Atualizar" : "Adicionar" }}
+@if(!busy){
+<app-form-builder />
+<mat-toolbar class="border d-flex justify-content-end" style="position: fixed; bottom: 0; width: 100%; background-color: white">
+  <button mat-fab extended class="shadow-none h-75 bg-white border" (click)="cancel()">
+    <mat-icon>close</mat-icon>Cancelar
   </button>
-</mat-dialog-actions>
+  <button mat-fab extended class="shadow-none h-75 ms-2">
+    <mat-icon>save</mat-icon>
+    {{ tese.descricao ? "Atualizar" : "Adicionar" }}
+  </button>
+</mat-toolbar>
+
+}

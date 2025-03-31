@@ -4,14 +4,6 @@
   flex: 1 1 auto;
 }
 
-.name {
-  margin-top: 10px;
-}
-.email {
-  color: var.$primary-color;
-  margin-top: -10px;
-}
-
 mat-icon {
   color: white;
 }
@@ -19,3 +11,34 @@ mat-icon {
 .logout {
   color: var.$primary-color !important;
 }
+
+
+.logo {
+  height: 66px;
+  width: 214px;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+  color: white !important
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.no-elevation {
+  box-shadow: none !important;
+  width: 45px;
+  height: 45px;
+}
+
+.toolbar {
+  background-color: white;
+  height: auto;
+}
+

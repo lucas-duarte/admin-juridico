@@ -5,6 +5,7 @@ import { TeseData } from '../../core/models/tese';
 import { TeseService } from '../../core/services/teste/tese.service';
 import { CustomTableComponent } from '../../shared/custom-table/custom-table.component';
 import { Router } from '@angular/router';
+import { ToolbarService } from '../../core/services/toolbar/toolbar.service';
 
 @Component({
   selector: 'app-pedidos',
@@ -20,6 +21,7 @@ export class PedidosComponent implements OnInit {
   currentPage = 1;
   isLoadingResults = false;
 
+
   columns = [
     { key: 'descricao', label: 'Descrição', link: true },
     { key: 'versao', label: 'Versão', link: false },
@@ -27,10 +29,14 @@ export class PedidosComponent implements OnInit {
     { key: 'publicado', label: 'Publicado', link: false }
   ];
 
-  constructor(private teseService: TeseService, private router: Router) { }
+  constructor(private teseService: TeseService, private router: Router, private toolbarService: ToolbarService) { }
 
   ngOnInit(): void {
     this.getTeses();
+
+    this.toolbarService.emitterRoute.emit([
+      { title: 'Pedidos', route: 'pedidos'},
+    ]);
   }
 
   getTeses() {

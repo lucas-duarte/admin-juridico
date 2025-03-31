@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
@@ -6,10 +6,13 @@ import { Router } from 'express';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { User } from '../../core/models/user';
+import { ToolbarService } from '../../core/services/toolbar/toolbar.service';
+import { ToolbarRoute } from '../../core/models/toolbar';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-toolbar',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, RouterModule],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, RouterModule, CommonModule],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss'
 })
@@ -18,26 +21,30 @@ export class ToolbarComponent {
   busy!: boolean;
   userData: User = {} as User;
   @Output() menuAction = new EventEmitter();
+  @Input() displayHeader = false;  
+  routes!: ToolbarRoute[];
   
-  constructor( ) { }
+  constructor(private toolbarService: ToolbarService) { }
 
   ngOnInit(): void {
 
-    // this.busy = true;
+    this.toolbarService.emitterLogin.subscribe(login => {
+      this.displayHeader = login
+    })
 
-    // const userId = this.authService.getUserIdFromToken() ?? '';
-    // this.authService.getUserById(userId).subscribe({
-    //   next: (response) => {
-    //     this.userData = response;
-    //     this.busy = false;
-    //   },
-    //   error: (error) => {
-    //     console.log(error);
-    //     this.busy = false;
-    //   }
-    // });
+    this.toolbarService.emitterRoute.subscribe(routes => {
+      this.routes = routes
+    });
+
   }
-  
+
+  getBreadcrumbLink(index: number): string {
+    return this.routes
+      .slice(0, index + 1)
+      .map(route => route.route)
+      .join('/');
+  }
+
   emitterMenu() {
     this.menuAction.emit();
   }

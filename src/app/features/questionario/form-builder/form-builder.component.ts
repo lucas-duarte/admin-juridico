@@ -15,12 +15,12 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     FormContainerComponent, 
     DragDropModule, 
     FieldTypeListComponent, 
-    // JsonPipe, 
     PanelFieldTypeConfigComponent, 
     FormlyModule, 
     ReactiveFormsModule, 
     MatSlideToggleModule,
     FormsModule
+    // JsonPipe, 
   ],
   templateUrl: './form-builder.component.html',
   styleUrl: './form-builder.component.scss'

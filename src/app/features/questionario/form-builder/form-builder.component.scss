@@ -21,9 +21,7 @@
     border-bottom: 1px solid #e0e0e0 !important;
 }
 
-body {
-  background-color: white !important;
-}
+
 
 .spacer {
   flex: 1 1 auto;
@@ -41,4 +39,10 @@ body {
 .scrollable-form {
   height: 100vh; /* ou defina uma altura específica */
   overflow-y: auto;
+}
+
+:host {
+  display: block; /* garante que o host seja tratado como bloco */
+  background-color: white ;
+  height: 100% !important;
 }

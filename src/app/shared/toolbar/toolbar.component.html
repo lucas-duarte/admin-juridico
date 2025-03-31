@@ -2,7 +2,25 @@
     <button mat-icon-button (click)="emitterMenu()">
         <mat-icon>menu</mat-icon>
     </button>
-    <div class="ms-5">ADMIN JURIDICO</div>
+    <nav aria-label="breadcrumb" class="ms-5 mt-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" *ngFor="let route of routes; let i = index">
+                <ng-container *ngIf="route.disabled; else link">
+                    <div style="font-size: 16px; margin-top: 2px;">
+                        <mat-icon *ngIf="route.icon" class="pt-2" style="font-size: 18px;">{{ route.icon}}</mat-icon>
+                        {{ route.title }}
+                    </div>
+                </ng-container>
+                <ng-template #link>
+                    <a [routerLink]="getBreadcrumbLink(i)" style="font-size: 16px;">
+                        <mat-icon *ngIf="route.icon" class="pt-2" style="font-size: 18px;">{{ route.icon
+                            }}</mat-icon>
+                        {{ route.title }}
+                    </a>
+                </ng-template>
+            </li>
+        </ol>
+    </nav>
 
     <span class="spacer"></span>
     @if(!busy){
