@@ -39,7 +39,9 @@ export class FormTeseComponent {
   }
 
   get propriedades() {
-    return this.formBuilderService.allPropriedades
+
+    const fieldKeys  = this.formBuilderService.formFields.map(item => item.field.key);
+    return  this.formBuilderService.allPropriedades.filter(p => fieldKeys.includes(p.rowKey));
   }
 
   onEditorCreated(tipo: 'fato' | 'fundamento' | 'pedido', quill: any) {

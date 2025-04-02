@@ -37,12 +37,13 @@ export class PreviewComponent implements OnInit {
   readonly loadingService = inject(LoadingService);
 
   ngOnInit(): void {
+    this.loadingService.show();
     this.rowKey = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
     this.getTese();
   }
 
   getTese() {
-    this.loadingService.show();
+    
     this.busy = true;
     this.teseService.getById(this.rowKey).subscribe({
       next: (response) => {

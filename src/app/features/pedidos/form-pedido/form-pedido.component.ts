@@ -62,6 +62,12 @@ export class FormPedidoComponent implements OnInit {
             { title: 'Pedidos', route: 'pedidos' },
             { title: `${this.tese.descricao}`, route: `pedidos/form/${this.rowKey}` },
           ]);
+
+          if (this.tese.questionarioAsJson && this.formBuilderService) {
+            this.formBuilderService.loadFormFieldsFromJson(this.tese.questionarioAsJson);
+          } else {
+            this.formBuilderService.loadFormFieldsFromJson(JSON.stringify([]));
+          }
         }
       }, error(err) {
         console.log(err)

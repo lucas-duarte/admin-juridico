@@ -25,7 +25,9 @@ export class RegraComponent {
   form: FormGroup;
 
   get campos() {
-    return this.formBuilderService.allPropriedades;
+
+    const fieldKeys  = this.formBuilderService.formFields.map(item => item.field.key);
+    return  this.formBuilderService.allPropriedades.filter(p => fieldKeys.includes(p.rowKey));
   }
 
   operadores = [
