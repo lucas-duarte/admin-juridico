@@ -21,7 +21,6 @@ export class PedidosComponent implements OnInit {
   currentPage = 1;
   isLoadingResults = false;
 
-
   columns = [
     { key: 'descricao', label: 'Descrição', link: true },
     { key: 'versao', label: 'Versão', link: false },

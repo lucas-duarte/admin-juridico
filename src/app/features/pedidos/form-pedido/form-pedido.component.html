@@ -1,6 +1,6 @@
 <div class="px-5 py-2">
 
-    <div class="bg-white mt-5 shadow rounded p-4 mb-5">
+    <div class="bg-white mt-5 shadow rounded p-4 mb-5" style="max-height: 98px;">
         @if(!editTitle){
         <div class="d-flex justify-content-between align-items-center">
             <div>
@@ -10,14 +10,19 @@
             <div class="d-flex align-items-center">
                 <mat-chip class="mx-3">Correções - {{tese.correcoes}}</mat-chip>
                 <mat-chip [class]="tese.publicado ? 'publicado' : ''">
-                    {{(tese.publicado ? 'Publicado' : 'Não Publicado')}} - V{{tese.versao}}
+                    <div [class]="tese.publicado ? 'publicado' : ''">{{(tese.publicado ? 'Publicado' : 'Não Publicado')}} - V{{tese.versao}}</div>
                 </mat-chip>
-                <button mat-fab class="shadow-none ms-5 me-3 text-center" (click)="editTitle = true">
-                    <mat-icon>edit</mat-icon>
+                <button mat-fab extended class="shadow-none ms-5 me-3 text-center" (click)="editTitle = true" [disabled]="tese.publicado">
+                    <mat-icon>edit</mat-icon>Pedido
                 </button>
-                <button mat-fab extended class="shadow-none me-3" (click)="openDialogQuestionario()">
+                
+                <button mat-fab extended class="shadow-none rounded-end-0 border-info border-end" [disabled]="tese.publicado" (click)="navigateToQuestionario()">
                     <mat-icon>edit_note</mat-icon>Questionario
                 </button>
+                <button mat-fab extended class="shadow-none rounded-start-0 px-4" (click)="navigateToPreview()">
+                    <mat-icon>visibility</mat-icon>Preview
+                </button>
+                
             </div>
         </div>
         } @else {
@@ -32,12 +37,13 @@
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <button mat-fab class="shadow-none" (click)="editTitle = false">
-                        <mat-icon>cancel</mat-icon>
-                    </button>
-                    <button mat-fab class="shadow-none mx-3" (click)="submit()">
-                        <mat-icon>save</mat-icon>
-                    </button>
+                    
+                    <button mat-fab extended class="shadow-none mb-4 bg-white border" (click)="editTitle = false">
+                        <mat-icon>close</mat-icon>Cancelar
+                      </button>
+                      <button mat-fab extended class="shadow-none mb-4 ms-2" (click)="submit()">
+                        <mat-icon>save</mat-icon>Salvar
+                      </button>
                 </div>
 
             </div>
@@ -82,10 +88,10 @@
                         <div class="border rounded p-3 fw-lighter" [innerHTML]="regra.pedido"></div>
                     </div>
                     <div class="col-1 text-end">
-                        <button mat-fab class="shadow-none" (click)="openDialogRegra(regra)">
+                        <button mat-mini-fab class="shadow-none" (click)="openDialogRegra(regra)">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-fab class="shadow-none ms-3">
+                        <button mat-mini-fab class="shadow-none ms-3">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </div>

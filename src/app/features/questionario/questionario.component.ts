@@ -16,6 +16,11 @@ import { ToolbarService } from '../../core/services/toolbar/toolbar.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoadingService } from '../../core/services/loading/loading.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-questionario',
@@ -28,7 +33,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatDialogModule,
     MatButtonModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './questionario.component.html',
   styleUrl: './questionario.component.scss'
@@ -40,12 +47,15 @@ export class QuestionarioComponent implements OnInit {
   readonly toolbarService = inject(ToolbarService);
   readonly activatedRoute = inject(ActivatedRoute);
   readonly router = inject(Router);
+  readonly loadingService = inject(LoadingService);
+  private _snackBar = inject(MatSnackBar);
 
   tese: TeseData = {} as TeseData;
   rowKey!: string;
   busy = false;
 
   ngOnInit(): void {
+    this.loadingService.show();
     this.rowKey = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
     this.getTese()
   }
@@ -68,10 +78,12 @@ export class QuestionarioComponent implements OnInit {
             this.formBuilderService.loadFormFieldsFromJson(JSON.stringify([]));
           }
         }
-        
+
         this.busy = false;
+        this.loadingService.hide();
       }, error: (err) => {
         this.busy = false;
+        this.loadingService.hide();
         console.log(err)
       },
     })
@@ -83,7 +95,7 @@ export class QuestionarioComponent implements OnInit {
 
   submit() {
 
-    this.busy = true;
+    this.loadingService.show();
 
     this.tese.questionarioAsJson = JSON.stringify(this.formBuilderService.formFields);
 
@@ -92,7 +104,7 @@ export class QuestionarioComponent implements OnInit {
         if (response.isSuccess) {
           this.tese = response.result
         }
-        this.busy = false;
+        this.loadingService.hide();
       }, error: (err) => {
         console.log(err)
         this.busy = false;

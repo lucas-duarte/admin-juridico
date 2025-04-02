@@ -63,8 +63,8 @@ export class FormBuilderService {
           label: 'Alternativa',
           description: '',
           options: [
-            { value: 1, label: 'Sim' },
-            { value: 0, label: 'Não' }
+            { value: true, label: 'Sim' },
+            { value: false, label: 'Não' }
           ],
         },
       },

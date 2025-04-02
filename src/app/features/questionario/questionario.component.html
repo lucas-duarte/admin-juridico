@@ -1,13 +1,14 @@
 @if(!busy){
-<app-form-builder />
-<mat-toolbar class="border d-flex justify-content-end" style="position: fixed; bottom: 0; width: 100%; background-color: white">
-  <button mat-fab extended class="shadow-none h-75 bg-white border" (click)="cancel()">
-    <mat-icon>close</mat-icon>Cancelar
-  </button>
-  <button mat-fab extended class="shadow-none h-75 ms-2">
-    <mat-icon>save</mat-icon>
-    {{ tese.descricao ? "Atualizar" : "Adicionar" }}
-  </button>
-</mat-toolbar>
+  
+  <app-form-builder />
+    
+  <mat-toolbar class="border d-flex justify-content-end" style="position: fixed; bottom: 0; width: 100%; background-color: white; z-index: 10;">
+    <button mat-fab extended class="shadow-none h-75 bg-white border" (click)="cancel()">
+      <mat-icon>close</mat-icon>Cancelar
+    </button>
+    <button mat-fab extended class="shadow-none h-75 ms-2" (click)="submit()">
+      <mat-icon>save</mat-icon>Salvar
+    </button>
+  </mat-toolbar>
 
 }

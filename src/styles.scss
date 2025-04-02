@@ -37,6 +37,10 @@
       // container-text-color: red,
     )
   );
+
+  @include mat.paginator-overrides((
+    container-background-color: white,
+  ));
 }
 
 html,

@@ -17,6 +17,7 @@ import { RegrasData } from '../../../core/models/regras';
 import { QuestionarioComponent } from '../../questionario/questionario.component';
 import { FormBuilderService } from '../../../core/services/form-builder/form-builder.service';
 import { ToolbarService } from '../../../core/services/toolbar/toolbar.service';
+import { PreviewComponent } from '../preview/preview.component';
 
 @Component({
   selector: 'app-form-pedido',
@@ -32,7 +33,7 @@ export class FormPedidoComponent implements OnInit {
   editTitle = false;
   busy = false;
 
-  constructor(private teseService: TeseService, private activeRoute: ActivatedRoute, private formBuilder: FormBuilder, private dialog : MatDialog, private formBuilderService: FormBuilderService, private toolbarService: ToolbarService, private router: Router) { }
+  constructor(private teseService: TeseService, private activeRoute: ActivatedRoute, private formBuilder: FormBuilder, private dialog: MatDialog, private formBuilderService: FormBuilderService, private toolbarService: ToolbarService, private router: Router) { }
 
   ngOnInit(): void {
     this.onInitForm();
@@ -58,8 +59,8 @@ export class FormPedidoComponent implements OnInit {
           });
 
           this.toolbarService.emitterRoute.emit([
-            { title: 'Pedidos', route: 'pedidos'},
-            { title: `${this.tese.descricao}`, route: `pedidos/form/${this.rowKey}`},
+            { title: 'Pedidos', route: 'pedidos' },
+            { title: `${this.tese.descricao}`, route: `pedidos/form/${this.rowKey}` },
           ]);
         }
       }, error(err) {
@@ -88,14 +89,14 @@ export class FormPedidoComponent implements OnInit {
     this.tese.questionarioAsJson = valor;
   }
 
-  
+
   openDialogRegra(regra?: RegrasData): void {
     const dialogRef = this.dialog.open(FormTeseComponent, {
       data: regra,
       minWidth: '100%',
       height: 'auto',
       minHeight: 'auto',
-      maxHeight: '100%',
+      maxHeight: 'auto',
       panelClass: 'p-5'
     });
 
@@ -108,14 +109,18 @@ export class FormPedidoComponent implements OnInit {
           this.tese.regras[index] = result;
         } else {
           this.tese.regras.push(result);
-        }  
-        this.submit(); 
+        }
+        this.submit();
       }
     });
   }
 
-  openDialogQuestionario(): void {
+  navigateToQuestionario(): void {
     this.router.navigate(['questionario', this.rowKey])
+  }
+  
+  navigateToPreview(): void {
+    this.router.navigate(['preview', this.rowKey])
   }
 
   submit() {

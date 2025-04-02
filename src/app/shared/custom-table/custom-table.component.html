@@ -14,10 +14,10 @@
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
-      <button *ngIf="showRefreshButton" mat-mini-fab matTooltip="Recarregar dados" class="shadow-none btn-add border ms-2" color="primary"  (click)="refresh.emit()">
+      <button *ngIf="showRefreshButton" mat-fab matTooltip="Recarregar dados" class="shadow-none ms-2" color="primary"  (click)="refresh.emit()">
         <mat-icon>refresh</mat-icon>
       </button>
-      <button *ngIf="showAddButton" mat-mini-fab matTooltip="Adicionar novo" class="shadow-none btn-add border ms-2" color="primary"  (click)="addNew.emit()">
+      <button *ngIf="showAddButton" mat-fab matTooltip="Adicionar novo" class="shadow-none ms-2" color="primary"  (click)="addNew.emit()">
         <mat-icon>add</mat-icon>
       </button>
     </div>
