@@ -1,0 +1,167 @@
+@use "../../styles/variables.scss" as var;
+
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+
+// tr:nth-child(even) {
+//     background-color: #f2f3f5;
+// }
+
+.table-responsive {
+    background-color: white;
+    min-height: 200px;
+    min-width: 400px;
+
+}
+
+.title {
+    font-size: 20px;
+    color: black;
+}
+
+
+
+.mat-column-description {
+    padding-left: 2%;
+}
+
+.mat-column-status {
+    align-items: center;
+    text-align: center;
+    width: 150px;
+}
+
+.mat-column-actions {
+
+    text-align: center;
+
+}
+
+.card-status {
+    background-color: rgb(218, 213, 213);
+    align-items: center;
+    border-radius: 20px;
+    font-size: 11px;
+    align-content: stretch;
+}
+
+.status-completed {
+    background-color: #558b2fff;
+    align-items: center;
+    border-radius: 20px;
+    color: white;
+    font-size: 11px;
+    align-content: stretch;
+}
+
+
+.btn-add {
+    height: 56px;
+    width: 56px;
+    border-radius: 5px;
+
+    .mat-icon {
+        color: white;
+    }
+    background-color: var.$primary-color;
+}
+
+.delete-button {
+    background-color: white;
+    align-items: center;
+    border: 2px solid var.$primary-color;
+    border-width: 1px;
+    height: 30px;
+
+}
+
+.description-tag {
+    text-decoration: none;
+    color: var.$primary-color !important;
+
+}
+
+.confirm-button {
+    background-color: green;
+    color: white !important;
+    margin-top: 2px;
+}
+
+.cancel-button {
+    background-color: red;
+    color: white !important;
+    margin-top: 2px;
+}
+
+.small-icon {
+    font-size: 18px;
+}
+
+a {
+    color: var.$primary-color !important;
+    text-decoration: dashed;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 56px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+button.loading {
+    background-color: var.$primary-color !important;
+    position: relative;
+    overflow: hidden;
+    color: transparent;
+    pointer-events: none;
+    border: none;
+}
+
+button.loading::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    animation: loading-progress 1.5s infinite;
+}
+
+button.loading::after {
+    content: 'Loading...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+}
+
+@keyframes loading-progress {
+    0% {
+        width: 0;
+    }
+
+    50% {
+        width: 100%;
+    }
+
+    100% {
+        width: 0;
+    }
+}

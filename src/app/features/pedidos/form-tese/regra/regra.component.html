@@ -1,0 +1,75 @@
+<div
+  class="border border-dark-subtle rounded h-100 d-flex flex-column justify-content-between"
+>
+  <form [formGroup]="form">
+    <p class="d-flex align-items-center border-bottom ps-4 titulo">Regras</p>
+    <div formArrayName="filtros" class="p-3">
+      <div
+        *ngFor="let filtro of filtros.controls; let i = index"
+        [formGroupName]="i"
+        class="d-flex flex-row mb-3"
+      >
+        <mat-form-field class="m-1 w-100">
+          <mat-label>Campo</mat-label>
+          <mat-select formControlName="campo">
+            <mat-option *ngFor="let campo of campos" [value]="campo">
+              {{ campo.rowKey | camelCaseToWords }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="m-1 w-100">
+          <mat-label>Operador</mat-label>
+          <mat-select formControlName="operador">
+            <mat-option *ngFor="let op of operadores" [value]="op.value">{{
+              op.label
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="m-1 w-100">
+            <mat-label>Valor</mat-label>          
+            <ng-container *ngIf="filtro.get('campo')?.value?.fieldType?.config?.type === 'radio'; else inputDefault">
+              <mat-select formControlName="valor">
+                <mat-option *ngFor="let opc of filtro.get('campo')?.value?.fieldType?.config?.props?.options" [value]="opc.value">
+                  {{ opc.label }}
+                </mat-option>
+              </mat-select>
+            </ng-container>          
+            <ng-template #inputDefault>
+              <input matInput formControlName="valor" />
+            </ng-template>
+          </mat-form-field>
+
+        <mat-form-field class="m-1 w-75" *ngIf="i < filtros.length - 1">
+          <mat-label>Condição</mat-label>
+          <mat-select formControlName="condicao">
+            <mat-option *ngFor="let cond of condicoes" [value]="cond.value">{{
+              cond.label
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="removerFiltro(i)"
+          *ngIf="filtros.length > 1"
+          class="mt-2"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+        <div class="m-1 w-75" *ngIf="i == filtros.length - 1"></div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <button mat-button color="primary" (click)="adicionarFiltro()">
+        Adicionar condição
+      </button>
+    </div>
+  </form>
+  <div class="saida border m-3">
+    <h4>Query OData:</h4>
+    <pre>{{ gerarOdataQuery() }}</pre>
+  </div>
+</div>

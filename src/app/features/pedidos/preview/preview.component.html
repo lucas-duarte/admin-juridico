@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="bg-white mt-5 shadow rounded p-4 mb-5">
+    <h2 class="mb-4">{{ tese.descricao }}</h2>
+
+    @if(busy){
+    <form [formGroup]="form" (ngSubmit)="submit(model)">
+      <formly-form
+        [form]="form"
+        [fields]="schemaFields"
+        [model]="model"
+      ></formly-form>
+    </form>
+    }
+    <div class="d-flex justify-content-between mt-4">
+      <button mat-fab extended class="shadow-none bg-white border" (click)="onNoClick()">
+        <mat-icon>undo</mat-icon>Voltar
+      </button>
+      <button mat-fab extended class="shadow-none ms-3" (click)="submit(model)">
+        <mat-icon>send</mat-icon>
+        Gerar pedido
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div class="content">
+    <div cdkDropList (cdkDropListDropped)="drop($event)" class="drop-area">
+        @for (formField of formFields; track $index) {
+            <app-form-item [formField]="formField"></app-form-item>
+        }
+    </div>
+</div>

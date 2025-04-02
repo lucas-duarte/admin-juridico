@@ -1,0 +1,16 @@
+<div class="px-5">
+    <app-custom-table 
+        title="Pedidos"
+        [columns]="columns"
+        [data]="teses"
+        [loading]="isLoadingResults"
+        [totalCount]="totalCount"
+        [pageSize]="pageSize"
+        [showRefreshButton]="true"
+        [showAddButton]="true"
+        (refresh)="getTeses()"
+        (rowClick)="navigateToTese($event)"
+        (pageChange)="onPageChange($event)"
+        (sortChange)="onSortChange($event)"
+        (deleteItem)="onDelete($event)"/>
+</div>

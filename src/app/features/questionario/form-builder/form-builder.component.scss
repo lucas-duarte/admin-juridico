@@ -1,0 +1,48 @@
+.border-bottom {
+  height: 60px !important;
+}
+
+.border {
+  border-width: 2px !important;
+  border-color: #e0e0e0 !important;
+}
+
+.border-bottom {
+    border-color: #e0e0e0 !important;
+    color: #5a5a5a;
+    font-weight: 500 !important;
+}
+
+.title {
+    color: #5a5a5a;
+    font-weight: 500 !important;
+    height: 60px !important;
+    border-top: 2px solid #e0e0e0 !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+
+.fixed-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh; /* ou a altura que desejar */
+  /* Se necessário, adicione overflow-y para rolagem interna na sidebar */
+  overflow-y: auto;
+}
+
+.scrollable-form {
+  height: 100vh; /* ou defina uma altura específica */
+  overflow-y: auto;
+}
+
+:host {
+  display: block; /* garante que o host seja tratado como bloco */
+  background-color: white ;
+  height: 100% !important;
+}

@@ -1,0 +1,147 @@
+{
+    "perguntas": [
+      {
+        "id": "1",
+        "partitionKey": "PERGUNTAS",
+        "rowKey": "<#DataAdmissao>",
+        "nome": "DataAdmissao",
+        "descricao": "Data de Admissão",
+        "timestamp": null,
+        "eTag": null
+      }
+    ],
+    "conceito": [
+      {
+        "id": "1",
+        "partitionKey": "CONCEITO",
+        "rowKey": "43406df389e84233a32ba44e965ffc16",
+        "Versao": 1,
+        "Correcoes": 0,
+        "Questionario": {},
+        "Tese": {},
+        "Publicado": false,
+        "timestamp": null,
+        "eTag": null
+      },
+      {
+        "id": "2",
+        "partitionKey": "CONCEITO",
+        "rowKey": "43406df389e84233a32ba44e965ffc16",
+        "Versao": 2,
+        "Correcoes": 0,
+        "Questionario": {},
+        "Tese": {},
+        "Publicado": false,
+        "timestamp": null,
+        "eTag": null
+      },
+      {
+        "id": "3",
+        "partitionKey": "CONCEITO",
+        "rowKey": "43406df389e84233a32ba44e965ffc16",
+        "Versao": 2,
+        "Correcoes": 1,
+        "Questionario": {},
+        "Tese": {},
+        "Publicado": false,
+        "timestamp": null,
+        "eTag": null
+      }
+    ],
+    "questionario": {
+      "perguntas": [
+        {
+          "id": "1",
+          "rowKey": "<#DataAdmissao>",
+          "nome": "DataAdmissao",
+          "descricao": "Data de Admissção",
+          "obrigatorio": true,
+          "visivelEm": null,
+          "ordem": 0
+        },
+        {
+          "id": "2",
+          "rowKey": "<#RegistradoSimNao>",
+          "nome": "RegistradoSimNao",
+          "descricao": "O reclamante foi registrado?",
+          "obrigatorio": true,
+          "visivelEm": null,
+          "ordem": 0
+        },
+        {
+          "id": "3",
+          "rowKey": "<#DataRegistroEmCTPS>",
+          "nome": "DataRegistro",
+          "descricao": "Data do registro em CTPS",
+          "obrigatorio": true,
+          "visivelEm": null,
+          "ordem": 0
+        },
+        {
+          "id": "4",
+          "rowKey": "<#PeriodoSemRegistroTexto>",
+          "nome": "PeriodoSemRegistro",
+          "descricao": "Indique o periodo sem registro",
+          "obrigatorio": true,
+          "visivelEm": "DataRegistro eq 'Sim'",
+          "ordem": 0
+        }
+      ],
+      "agrupamentos": [
+        {
+          "id": "1",
+          "ordem": 0,
+          "titulo": "Registro",
+          "perguntaIDs": [
+            "<#RegistradoSimNao>",
+            "<#DataRegistroEmCTPS>"
+          ]
+        }
+      ]
+    },
+    "tese": [
+      {
+        "fato": "O reclamante foi registrado no dia <#DataRegistroEmCTPS>",
+        "fundamento": "Com base na lei",
+        "pedido": "solicitamos cobrança integral",
+        "condicao": "RegistradoSimNao eq 'Sim' and (DataRegistro neq '' or DataRegistro neq null)",
+        "perguntaIDs": [
+          {
+            "id": "1",
+            "rowKey": "<#RegistradoSimNao>",
+            "nome": "RegistradoSimNao",
+            "descricao": "O reclamante foi registrado?",
+            "obrigatorio": true,
+            "visivelEm": null,
+            "ordem": 0
+          },
+          {
+            "id": "2",
+            "rowKey": "<#DataRegistroEmCTPS>",
+            "nome": "DataRegistro",
+            "descricao": "Data do registro em CTPS",
+            "obrigatorio": true,
+            "visivelEm": null,
+            "ordem": 0
+          }
+        ]
+      }
+    ],
+    "respostas": [
+      {
+        "partitionKey": "RESPOSTAS",
+        "rowKey": "43406df389e84233a32ba44e965ffc16",
+        "Conceito": {
+          "Versao": 1,
+          "Correcao": 0,
+          "Questionario": {},
+          "Tese": {}
+        },
+        "DataAdmissao": "2027-01-01",
+        "RegistradoSimNao": "Sim",
+        "timestamp": null,
+        "eTag": null
+      }
+    ]
+  }
+  

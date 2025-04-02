@@ -1,0 +1,10 @@
+@if(busy){
+<div class="mb-4 p-2" style="background-color: white;">
+    <mat-progress-bar mode="indeterminate" class="my-4"></mat-progress-bar>
+    @for (item of [1, 2, 3, 4, 5, 6]; track $index) {
+    <div class="loading-skeleton my-1" style="height: 30px; border-radius: 2px;"></div>
+    }
+</div>
+} @else {
+<ng-content></ng-content>
+}

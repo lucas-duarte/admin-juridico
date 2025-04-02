@@ -1,0 +1,44 @@
+@use './../../styles/variables.scss' as var;
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-icon {
+  color: white;
+}
+
+.logout {
+  color: var.$primary-color !important;
+}
+
+
+.logo {
+  height: 66px;
+  width: 214px;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+  color: white !important
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.no-elevation {
+  box-shadow: none !important;
+  width: 45px;
+  height: 45px;
+}
+
+.toolbar {
+  background-color: white;
+  height: auto;
+}
+

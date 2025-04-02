@@ -1,0 +1,24 @@
+button:hover {
+    cursor: grab !important;
+}
+
+.components-panel {
+    max-height: calc(100vh - 150px) !important; /* Ajuste o valor conforme sua necessidade */
+    overflow-y: auto;
+    scrollbar-width: thin; /* Para Firefox */
+    padding: 10px;
+  }
+
+  /* Para Chrome, Safari e Edge */
+.components-panel::-webkit-scrollbar {
+    width: 8px; /* Define a largura da barra */
+  }
+  
+  .components-panel::-webkit-scrollbar-track {
+    background: transparent; /* Cor do fundo da barra */
+  }
+  
+  .components-panel::-webkit-scrollbar-thumb {
+    background-color: #aaa; /* Cor da parte que você arrasta */
+    border-radius: 4px;
+  }
