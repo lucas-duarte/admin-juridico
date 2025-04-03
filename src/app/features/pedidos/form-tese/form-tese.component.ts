@@ -1,7 +1,7 @@
 import { Component, ElementRef, importProvidersFrom, inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TeseData } from '../../../core/models/tese';
-import { TeseService } from '../../../core/services/teste/tese.service';
+import { TeseService } from '../../../core/services/tese/tese.service';
 import { ActivatedRoute } from '@angular/router';
 import { QuillModule } from 'ngx-quill';
 import { RegrasData } from '../../../core/models/regras';
@@ -59,11 +59,27 @@ export class FormTeseComponent {
     const editor = this.quillInstances[this.editorAtivo];
     if (editor) {
       const pos = editor.getSelection(true);
-      editor.insertText(pos?.index ?? 0, referencia);
-      editor.setSelection((pos?.index ?? 0) + referencia.length);
+      const insertIndex = pos?.index ?? 0;
+      editor.insertText(insertIndex, referencia);
+      const newPos = insertIndex + referencia.length;
+      (this.regra as any)[this.editorAtivo] = editor.root.innerHTML;
+      setTimeout(() => {
+        editor.focus();
+        editor.setSelection(newPos, 0, 'user');
+      }, 0);
     }
   }
 
+  onEditorClick(tipo: 'fato' | 'fundamento' | 'pedido'): void {
+    const editor = this.quillInstances[tipo];
+    if (editor) {
+      editor.focus();
+      // Opcional: posiciona o cursor no final do conteúdo
+      const length = editor.getLength();
+      editor.setSelection(length, 0, 'user');
+    }
+  }
+  
   onTabChange(event: any) {
     const index = event.index;
     switch (index) {

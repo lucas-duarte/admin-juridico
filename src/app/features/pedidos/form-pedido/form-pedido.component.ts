@@ -10,7 +10,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { TeseData } from '../../../core/models/tese';
-import { TeseService } from '../../../core/services/teste/tese.service';
+import { TeseService } from '../../../core/services/tese/tese.service';
 import { FormTeseComponent } from '../form-tese/form-tese.component';
 import { MatDialog } from '@angular/material/dialog';
 import { RegrasData } from '../../../core/models/regras';
@@ -18,6 +18,7 @@ import { QuestionarioComponent } from '../../questionario/questionario.component
 import { FormBuilderService } from '../../../core/services/form-builder/form-builder.service';
 import { ToolbarService } from '../../../core/services/toolbar/toolbar.service';
 import { PreviewComponent } from '../preview/preview.component';
+import { LoadingService } from '../../../core/services/loading/loading.service';
 
 @Component({
   selector: 'app-form-pedido',
@@ -33,7 +34,9 @@ export class FormPedidoComponent implements OnInit {
   editTitle = false;
   busy = false;
 
-  constructor(private teseService: TeseService, private activeRoute: ActivatedRoute, private formBuilder: FormBuilder, private dialog: MatDialog, private formBuilderService: FormBuilderService, private toolbarService: ToolbarService, private router: Router) { }
+  constructor(private teseService: TeseService, private activeRoute: ActivatedRoute, private formBuilder: FormBuilder, private dialog: MatDialog, private formBuilderService: FormBuilderService, private toolbarService: ToolbarService, private router: Router, private loadingService: LoadingService) {
+    this.loadingService.show();
+   }
 
   ngOnInit(): void {
     this.onInitForm();
@@ -69,8 +72,11 @@ export class FormPedidoComponent implements OnInit {
             this.formBuilderService.loadFormFieldsFromJson(JSON.stringify([]));
           }
         }
-      }, error(err) {
+
+        this.loadingService.hide();
+      }, error: (err) =>  {
         console.log(err)
+        this.loadingService.hide();
       },
     })
   }
@@ -107,9 +113,9 @@ export class FormPedidoComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       if (result) {
-        const index = this.tese.regras.findIndex(r => r.descricao === result.descricao);
+        console.log(result);
+        const index = this.tese.regras.findIndex(r => r.id === result.id);
 
         if (index !== -1) {
           this.tese.regras[index] = result;
@@ -126,6 +132,7 @@ export class FormPedidoComponent implements OnInit {
   }
   
   navigateToPreview(): void {
+    this.loadingService.show();
     this.router.navigate(['preview', this.rowKey])
   }
 
@@ -138,7 +145,6 @@ export class FormPedidoComponent implements OnInit {
       publicado: this.publicado
     }
 
-    console.log(data)
     this.busy = true;
     this.teseService.update(this.rowKey, data).subscribe({
       next: (response) => {

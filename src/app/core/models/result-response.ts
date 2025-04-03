@@ -1,5 +1,9 @@
 export interface ResultResponse<T> {
     result: T
     isSuccess: boolean
-    error: any
+    error: {
+      errorCode: string
+      errorMessage: string
+      additionalInformation: any[]
+    }
   }

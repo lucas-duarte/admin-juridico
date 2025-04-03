@@ -10,12 +10,13 @@
       <mat-tab-group class="border border-dark-subtle rounded" (selectedTabChange)="onTabChange($event)">
         <mat-tab label="Fato">
           <quill-editor
-          
             class="p-2 w-100"
             [(ngModel)]="regra.fato"
-            [styles]="{ 'min-height': heightQuill }"            [placeholder]="'Digite aqui o fato...'"
+            [styles]="{ 'min-height': heightQuill }"
+            [placeholder]="'Digite aqui o fato...'"
             (onEditorCreated)="onEditorCreated('fato', $event)"
             (focus)="setEditorAtivo('fato')"
+            (click)="onEditorClick('fato')"
           />
         </mat-tab>
         <mat-tab label="Fundamento">
@@ -26,15 +27,18 @@
             [placeholder]="'Digite aqui o fundamento...'"
             (onEditorCreated)="onEditorCreated('fundamento', $event)"
             (focus)="setEditorAtivo('fundamento')"
+            (click)="onEditorClick('fundamento')"
           />
         </mat-tab>
         <mat-tab label="Pedido">
           <quill-editor
             class="p-2 w-100"
             [(ngModel)]="regra.pedido"
-            [styles]="{ 'min-height': heightQuill }"            [placeholder]="'Digite aqui o pedido...'"
+            [styles]="{ 'min-height': heightQuill }"
+            [placeholder]="'Digite aqui o pedido...'"
             (onEditorCreated)="onEditorCreated('pedido', $event)"
             (focus)="setEditorAtivo('pedido')"
+            (click)="onEditorClick('pedido')"
           />
         </mat-tab>
       </mat-tab-group>

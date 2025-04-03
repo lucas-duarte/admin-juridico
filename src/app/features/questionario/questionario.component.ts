@@ -11,7 +11,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { RegrasData } from '../../core/models/regras';
 import { FormBuilderService } from '../../core/services/form-builder/form-builder.service';
 import { TeseData } from '../../core/models/tese';
-import { TeseService } from '../../core/services/teste/tese.service';
+import { TeseService } from '../../core/services/tese/tese.service';
 import { ToolbarService } from '../../core/services/toolbar/toolbar.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';

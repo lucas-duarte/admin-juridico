@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { TeseData } from '../../core/models/tese';
-import { TeseService } from '../../core/services/teste/tese.service';
+import { TeseService } from '../../core/services/tese/tese.service';
 import { CustomTableComponent } from '../../shared/custom-table/custom-table.component';
 import { Router } from '@angular/router';
 import { ToolbarService } from '../../core/services/toolbar/toolbar.service';

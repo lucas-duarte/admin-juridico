@@ -3,11 +3,13 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FormlyModule } from '@ngx-formly/core';
-import { TeseService } from '../../../core/services/teste/tese.service';
+import { TeseService } from '../../../core/services/tese/tese.service';
 import { TeseData } from '../../../core/models/tese';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { LoadingService } from '../../../core/services/loading/loading.service';
+import { SnackbarService } from '../../../core/services/snackbar/snackbar.service';
+import { DialogPreviewComponent } from './dialog-preview/dialog-preview.component';
 
 @Component({
   selector: 'app-preview',
@@ -35,15 +37,15 @@ export class PreviewComponent implements OnInit {
   readonly activatedRoute = inject(ActivatedRoute);
   readonly router = inject(Router);
   readonly loadingService = inject(LoadingService);
+  readonly snackbarService = inject(SnackbarService);
 
   ngOnInit(): void {
-    this.loadingService.show();
     this.rowKey = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
     this.getTese();
   }
 
   getTese() {
-    
+
     this.busy = true;
     this.teseService.getById(this.rowKey).subscribe({
       next: (response) => {
@@ -66,24 +68,38 @@ export class PreviewComponent implements OnInit {
     })
   }
 
-  // openDialogPreview(): void {
-  //   const dialogRef = this.dialog.open(PreviewComponent, {
-  //     data: this.rowKey,
-  //     maxWidth: '100%',
-  //     width: '50vw',
-  //     panelClass: 'p-5'
-  //   });
+  openDialogPreview(value: any): void {
+    const dialogRef = this.dialog.open(DialogPreviewComponent, {
+      data: value,
+      maxWidth: '100%',
+      width: '50vw',
+      panelClass: 'p-5'
+    });
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //     if (result !== undefined) {
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result !== undefined) {
 
-  //     }
-  //   });
-  // }
+      }
+    });
+  }
 
   submit(model: any) {
-    console.log(model);
+
+    this.loadingService.show();
+
+    this.teseService.preview(this.rowKey, model).subscribe({
+      next: (response) => {
+        if(response.isSuccess){
+          this.loadingService.hide();
+          this.openDialogPreview(response.result)
+        }
+      },
+      error: (response) => {
+        this.snackbarService.simpleMessageError(response.error.error.errorMessage)
+        this.loadingService.hide();
+      },
+    })
   }
 
   onNoClick(): void {
