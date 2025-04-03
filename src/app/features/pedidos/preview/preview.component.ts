@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { LoadingService } from '../../../core/services/loading/loading.service';
 import { SnackbarService } from '../../../core/services/snackbar/snackbar.service';
 import { DialogPreviewComponent } from './dialog-preview/dialog-preview.component';
+import { ToolbarService } from '../../../core/services/toolbar/toolbar.service';
 
 @Component({
   selector: 'app-preview',
@@ -38,6 +39,7 @@ export class PreviewComponent implements OnInit {
   readonly router = inject(Router);
   readonly loadingService = inject(LoadingService);
   readonly snackbarService = inject(SnackbarService);
+  readonly toolbarService = inject(ToolbarService);
 
   ngOnInit(): void {
     this.rowKey = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
@@ -51,6 +53,7 @@ export class PreviewComponent implements OnInit {
       next: (response) => {
         if (response.isSuccess) {
           this.tese = response.result
+          this.setHeader();
           try {
             const parsed = JSON.parse(this.tese.questionarioAsJson || '[]') as any[];
             this.schemaFields = parsed.map(t => t.field);
@@ -66,6 +69,14 @@ export class PreviewComponent implements OnInit {
         this.loadingService.hide();
       },
     })
+  }
+
+  setHeader(){
+    this.toolbarService.emitterRoute.emit([
+      { title: 'Pedidos', route: 'pedidos' },
+      { title: `${this.tese.descricao}`, route: `form/${this.tese.rowKey}` },
+      { title: `preview`, route: '', disabled: true },
+    ]);
   }
 
   openDialogPreview(value: any): void {

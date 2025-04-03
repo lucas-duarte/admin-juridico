@@ -1,27 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
-import { HttpParams } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouterModule } from '@angular/router';
-import { TableLoadingSkeletonComponent } from "../../shared/table-loading-skeleton/table-loading-skeleton.component";
-import { EmptyTableAlertComponent } from "../../shared/empty-table-alert/empty-table-alert.component";
+import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { PropriedadeData } from '../../core/models/propriedade';
-import { fadeInAnimation, fadeOutAnimation } from '../../core/constants/animations';
 import { CustomTableComponent } from "../../shared/custom-table/custom-table.component";
 import { PropriedadesService } from '../../core/services/propriedades/propriedades.service';
-import { link } from 'fs';
 import { DatePipe } from '@angular/common';
 import { FormPropriedadeComponent } from './form-propriedade/form-propriedade.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ToolbarService } from '../../core/services/toolbar/toolbar.service';
 
 @Component({
   selector: 'app-propriedades',
@@ -55,9 +41,10 @@ export class PropriedadesComponent implements OnInit {
     { key: 'eTag', label: 'eTag', link: false },
   ];
 
-  constructor(private propriedadesService: PropriedadesService, private datePipe: DatePipe, private dialog: MatDialog) { }
+  constructor(private propriedadesService: PropriedadesService, private datePipe: DatePipe, private dialog: MatDialog, private toolbarService: ToolbarService) { }
 
   ngOnInit(): void {
+    this.setHeader();
     this.getPropriedades();
   }
 
@@ -105,8 +92,13 @@ export class PropriedadesComponent implements OnInit {
     });
   }
 
-  onDelete(item: PropriedadeData) {
+  setHeader(){
+    this.toolbarService.emitterRoute.emit([
+      { title: 'Propriedades', route: 'propriedades' }
+    ]);
+  }
 
+  onDelete(item: PropriedadeData) {
     console.log('Excluir item:', item);
   }
 }
