@@ -2,7 +2,7 @@
   <b>{{ regra.descricao }}</b>
 </h2>
 <mat-dialog-content #dialogBody>
-  <div class="row">
+  <div class="row" #propriedadesDiv>
     <div class="col-4">
       <app-regra [regra]="regra" (regraUpdated)="getRegraUpdated($event)"/>
     </div>
@@ -10,10 +10,10 @@
       <mat-tab-group class="border border-dark-subtle rounded" (selectedTabChange)="onTabChange($event)">
         <mat-tab label="Fato">
           <quill-editor
+          
             class="p-2 w-100"
             [(ngModel)]="regra.fato"
-            [styles]="{ 'min-height': '500px' }"
-            [placeholder]="'Digite aqui o fato...'"
+            [styles]="{ 'min-height': heightQuill }"            [placeholder]="'Digite aqui o fato...'"
             (onEditorCreated)="onEditorCreated('fato', $event)"
             (focus)="setEditorAtivo('fato')"
           />
@@ -22,8 +22,7 @@
           <quill-editor
             class="p-2 w-100"
             [(ngModel)]="regra.fundamento"
-            [styles]="{ 'min-height': '500px' }"
-
+            [styles]="{ 'min-height': heightQuill }"
             [placeholder]="'Digite aqui o fundamento...'"
             (onEditorCreated)="onEditorCreated('fundamento', $event)"
             (focus)="setEditorAtivo('fundamento')"
@@ -33,8 +32,7 @@
           <quill-editor
             class="p-2 w-100"
             [(ngModel)]="regra.pedido"
-            [styles]="{ 'min-height': '500px' }"
-            [placeholder]="'Digite aqui o pedido...'"
+            [styles]="{ 'min-height': heightQuill }"            [placeholder]="'Digite aqui o pedido...'"
             (onEditorCreated)="onEditorCreated('pedido', $event)"
             (focus)="setEditorAtivo('pedido')"
           />
@@ -42,11 +40,11 @@
       </mat-tab-group>
     </div>
     <div class="col-2">
-      <div class="border border-dark-subtle rounded h-100 d-flex flex-column justify-content-between">
+      <div class="border border-dark-subtle rounded h-100">
         <p class="d-flex align-items-center border-bottom ps-4 titulo">
           Propriedades
         </p>
-        <div class="px-3 pb-3" #propriedadesDiv>
+        <div class="px-3 pb-3">
           @for (item of propriedades; track $index) {
           <button
             mat-fab
@@ -65,7 +63,7 @@
     </div>
   </div>
 </mat-dialog-content>
-<mat-dialog-actions>
+<mat-dialog-actions style="position: absolute; bottom: 5px; right: 5px;">
   <button mat-button mat-dialog-close>Cancelar</button>
   <button mat-button cdkFocusInitial (click)="submit()">
     {{ regra ? "Atualizar" : "Adicionar" }}

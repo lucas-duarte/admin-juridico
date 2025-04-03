@@ -100,9 +100,9 @@ export class FormPedidoComponent implements OnInit {
     const dialogRef = this.dialog.open(FormTeseComponent, {
       data: regra,
       minWidth: '100%',
-      height: 'auto',
+      height: '100vh',
       minHeight: 'auto',
-      maxHeight: 'auto',
+      maxHeight: '100vh',
       panelClass: 'p-5'
     });
 

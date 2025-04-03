@@ -23,6 +23,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class FormTeseComponent {
   @ViewChild('dialogBody') dialogBodyRef!: ElementRef;
   @ViewChild('propriedadesDiv') propriedadesDivRef!: ElementRef;
+  heightQuill!: string;
 
   readonly dialogRef = inject(MatDialogRef<FormTeseComponent>);
   readonly formBuilderService = inject(FormBuilderService);
@@ -32,16 +33,18 @@ export class FormTeseComponent {
   editorAtivo: string = 'fato';
 
   ngAfterViewInit(): void {
+    console.log(this.propriedadesDivRef.nativeElement.style.minHeight)
     const bodyHeight = this.dialogBodyRef.nativeElement.clientHeight;
-    const alturaPropriedades = bodyHeight - 100;
-    this.propriedadesDivRef.nativeElement.style.maxHeight = `${alturaPropriedades}px`;
+    const alturaPropriedades = bodyHeight - 55;
+    this.propriedadesDivRef.nativeElement.style.minHeight = `${alturaPropriedades}px`;
     this.propriedadesDivRef.nativeElement.style.overflowY = 'auto';
+    this.heightQuill = `${alturaPropriedades - 130}px`;
   }
 
   get propriedades() {
 
-    const fieldKeys  = this.formBuilderService.formFields.map(item => item.field.key);
-    return  this.formBuilderService.allPropriedades.filter(p => fieldKeys.includes(p.rowKey));
+    const fieldKeys = this.formBuilderService.formFields.map(item => item.field.key);
+    return this.formBuilderService.allPropriedades.filter(p => fieldKeys.includes(p.rowKey));
   }
 
   onEditorCreated(tipo: 'fato' | 'fundamento' | 'pedido', quill: any) {

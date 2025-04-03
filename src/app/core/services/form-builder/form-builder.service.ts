@@ -122,7 +122,7 @@ export class FormBuilderService {
       itemData.active = true;
       this.activeFormField$.next(itemData);
     }
-    this.persistFormFields();
+    // this.persistFormFields();
     this.removeTempFields();
     this.updatePropriedade();
   }
@@ -146,7 +146,7 @@ export class FormBuilderService {
     try {
       const parsed = JSON.parse(jsonString);
       this.formFields = parsed;
-      this.persistFormFields(); // se quiser manter no sessionStorage
+      // this.persistFormFields(); // se quiser manter no sessionStorage
       this.updatePropriedade(); // atualiza propriedades disponíveis
     } catch (e) {
       console.error('Erro ao fazer parse do questionarioAsJson:', e);
@@ -155,7 +155,7 @@ export class FormBuilderService {
 
   removeItem(item: any) {
     this.formFields = [...this.formFields.filter(i => i !== item)];
-    this.persistFormFields();
+    // this.persistFormFields();
     this.updatePropriedade();
   }
 
