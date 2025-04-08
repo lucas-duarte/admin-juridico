@@ -11,7 +11,11 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { RegrasData } from '../../core/models/regras';
 import { FormBuilderService } from '../../core/services/form-builder/form-builder.service';
 import { TeseData } from '../../core/models/tese';
+<<<<<<< HEAD
 import { TeseService } from '../../core/services/teste/tese.service';
+=======
+import { TeseService } from '../../core/services/tese/tese.service';
+>>>>>>> initalProject
 import { ToolbarService } from '../../core/services/toolbar/toolbar.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -20,6 +24,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingService } from '../../core/services/loading/loading.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+<<<<<<< HEAD
+=======
+import { SnackbarService } from '../../core/services/snackbar/snackbar.service';
+>>>>>>> initalProject
 
 
 @Component({
@@ -38,7 +46,11 @@ import {MatSnackBar} from '@angular/material/snack-bar';
     MatProgressSpinnerModule
   ],
   templateUrl: './questionario.component.html',
+<<<<<<< HEAD
   styleUrl: './questionario.component.scss'
+=======
+  styleUrl: './questionario.component.scss',
+>>>>>>> initalProject
 })
 export class QuestionarioComponent implements OnInit {
 
@@ -48,14 +60,27 @@ export class QuestionarioComponent implements OnInit {
   readonly activatedRoute = inject(ActivatedRoute);
   readonly router = inject(Router);
   readonly loadingService = inject(LoadingService);
+<<<<<<< HEAD
   private _snackBar = inject(MatSnackBar);
+=======
+  private snackbarService = inject(SnackbarService);
+>>>>>>> initalProject
 
   tese: TeseData = {} as TeseData;
   rowKey!: string;
   busy = false;
 
+<<<<<<< HEAD
   ngOnInit(): void {
     this.loadingService.show();
+=======
+constructor(){
+  this.loadingService.show();
+}
+
+  ngOnInit(): void {
+    
+>>>>>>> initalProject
     this.rowKey = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
     this.getTese()
   }
@@ -103,11 +128,21 @@ export class QuestionarioComponent implements OnInit {
       next: (response) => {
         if (response.isSuccess) {
           this.tese = response.result
+<<<<<<< HEAD
+=======
+          this.snackbarService.notificationSuccess("Questionario Salvo com sucesso!")
+>>>>>>> initalProject
         }
         this.loadingService.hide();
       }, error: (err) => {
         console.log(err)
+<<<<<<< HEAD
         this.busy = false;
+=======
+        this.snackbarService.notificationError(err);
+        this.busy = false;
+        this.loadingService.hide();
+>>>>>>> initalProject
       },
     })
   }

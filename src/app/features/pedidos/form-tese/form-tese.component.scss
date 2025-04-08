@@ -2,4 +2,13 @@
   height: 48px !important;
   color: black;
   font-weight: 500;
+<<<<<<< HEAD
+=======
+}
+
+:host ::ng-deep mat-dialog-content {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 90%; /* garante que o flex não expanda além do container */
+>>>>>>> initalProject
 }

@@ -58,3 +58,26 @@ body {
     font-size: 14px; /* em vez de 16px */
   }
 }
+<<<<<<< HEAD
+=======
+
+.mat-mdc-snack-bar-container {
+  --mat-mdc-snack-bar-button-color: #ffffff;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+
+  &.app-notification-error {
+    --mdc-snackbar-container-color: #f23a2f!important;
+    color: white!important;
+  }
+
+  &.app-notification-success {
+    --mdc-snackbar-container-color: #558b2fff!important;
+    color: white!important;
+  }
+
+  &.app-notification-alert {
+    --mdc-snackbar-container-color: #ffbc50!important;
+    --mdc-snackbar-supporting-text-color: black;
+  }
+}
+>>>>>>> initalProject

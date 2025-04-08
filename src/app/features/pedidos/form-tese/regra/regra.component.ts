@@ -25,7 +25,13 @@ export class RegraComponent {
   form: FormGroup;
 
   get campos() {
+<<<<<<< HEAD
     return this.formBuilderService.allPropriedades;
+=======
+
+    const fieldKeys  = this.formBuilderService.formFields.map(item => item.field.key);
+    return  this.formBuilderService.allPropriedades.filter(p => fieldKeys.includes(p.rowKey));
+>>>>>>> initalProject
   }
 
   operadores = [
@@ -70,7 +76,11 @@ export class RegraComponent {
     return this.fb.group({
       campo: ['', Validators.required],
       operador: ['', Validators.required],
+<<<<<<< HEAD
       valor: ['', Validators.required],
+=======
+      valor: [''],
+>>>>>>> initalProject
       condicao: ['']
     });
   }

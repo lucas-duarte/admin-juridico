@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -22,6 +23,18 @@ import { link } from 'fs';
 import { DatePipe } from '@angular/common';
 import { FormPropriedadeComponent } from './form-propriedade/form-propriedade.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+=======
+import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
+import { PropriedadeData } from '../../core/models/propriedade';
+import { CustomTableComponent } from "../../shared/custom-table/custom-table.component";
+import { PropriedadesService } from '../../core/services/propriedades/propriedades.service';
+import { DatePipe } from '@angular/common';
+import { FormPropriedadeComponent } from './form-propriedade/form-propriedade.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ToolbarService } from '../../core/services/toolbar/toolbar.service';
+>>>>>>> initalProject
 
 @Component({
   selector: 'app-propriedades',
@@ -55,9 +68,16 @@ export class PropriedadesComponent implements OnInit {
     { key: 'eTag', label: 'eTag', link: false },
   ];
 
+<<<<<<< HEAD
   constructor(private propriedadesService: PropriedadesService, private datePipe: DatePipe, private dialog: MatDialog) { }
 
   ngOnInit(): void {
+=======
+  constructor(private propriedadesService: PropriedadesService, private datePipe: DatePipe, private dialog: MatDialog, private toolbarService: ToolbarService) { }
+
+  ngOnInit(): void {
+    this.setHeader();
+>>>>>>> initalProject
     this.getPropriedades();
   }
 
@@ -105,8 +125,18 @@ export class PropriedadesComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   onDelete(item: PropriedadeData) {
 
+=======
+  setHeader(){
+    this.toolbarService.emitterRoute.emit([
+      { title: 'Propriedades', route: 'propriedades' }
+    ]);
+  }
+
+  onDelete(item: PropriedadeData) {
+>>>>>>> initalProject
     console.log('Excluir item:', item);
   }
 }

@@ -2,10 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { TeseData } from '../../core/models/tese';
+<<<<<<< HEAD
 import { TeseService } from '../../core/services/teste/tese.service';
 import { CustomTableComponent } from '../../shared/custom-table/custom-table.component';
 import { Router } from '@angular/router';
 import { ToolbarService } from '../../core/services/toolbar/toolbar.service';
+=======
+import { TeseService } from '../../core/services/tese/tese.service';
+import { CustomTableComponent } from '../../shared/custom-table/custom-table.component';
+import { Router } from '@angular/router';
+import { ToolbarService } from '../../core/services/toolbar/toolbar.service';
+import { CreatePedidoComponent } from './create-pedido/create-pedido.component';
+import { MatDialog } from '@angular/material/dialog';
+>>>>>>> initalProject
 
 @Component({
   selector: 'app-pedidos',
@@ -28,7 +37,11 @@ export class PedidosComponent implements OnInit {
     { key: 'publicado', label: 'Publicado', link: false }
   ];
 
+<<<<<<< HEAD
   constructor(private teseService: TeseService, private router: Router, private toolbarService: ToolbarService) { }
+=======
+  constructor(private teseService: TeseService, private router: Router, private toolbarService: ToolbarService, private dialog: MatDialog) { }
+>>>>>>> initalProject
 
   ngOnInit(): void {
     this.getTeses();
@@ -71,4 +84,23 @@ export class PedidosComponent implements OnInit {
     // Lógica para deletar o item
     console.log('Excluir item:', item);
   }
+<<<<<<< HEAD
+=======
+
+  openCreatePedidoDialog(propriedade?: CreatePedidoComponent) {
+      const dialogRef = this.dialog.open(CreatePedidoComponent, {
+        height: 'auto',
+        minWidth: '800px',
+        data: propriedade
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          // Atualize a tabela ou execute outra ação após o update
+          console.log('Tese atualizada:', result);
+          this.getTeses();
+        }
+      });
+    }
+>>>>>>> initalProject
 }
