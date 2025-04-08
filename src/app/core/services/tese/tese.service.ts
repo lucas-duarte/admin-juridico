@@ -15,9 +15,15 @@ export class TeseService extends BaseService<TeseData> {
     super(http, `${environment.apiUrl}/${environment.version}/Teses`);
   }
 
-   preview(id: string, item: any): Observable<ResultResponse<any>> {
-      const url = `${environment.apiUrl}/${environment.version}/Teses/${id}/preview`;
-      return this.http.post<ResultResponse<any>>(url, item);
-    }
+  preview(id: string, item: any): Observable<string> {
+    const url = `${environment.apiUrl}/${environment.version}/Teses/${id}/preview`;
+    return this.http.post(url, item, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      responseType: 'text' as const
+    });
+  }
+  
   
 }

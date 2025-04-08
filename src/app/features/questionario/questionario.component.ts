@@ -20,6 +20,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingService } from '../../core/services/loading/loading.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { SnackbarService } from '../../core/services/snackbar/snackbar.service';
 
 
 @Component({
@@ -38,7 +39,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
     MatProgressSpinnerModule
   ],
   templateUrl: './questionario.component.html',
-  styleUrl: './questionario.component.scss'
+  styleUrl: './questionario.component.scss',
 })
 export class QuestionarioComponent implements OnInit {
 
@@ -48,14 +49,18 @@ export class QuestionarioComponent implements OnInit {
   readonly activatedRoute = inject(ActivatedRoute);
   readonly router = inject(Router);
   readonly loadingService = inject(LoadingService);
-  private _snackBar = inject(MatSnackBar);
+  private snackbarService = inject(SnackbarService);
 
   tese: TeseData = {} as TeseData;
   rowKey!: string;
   busy = false;
 
+constructor(){
+  this.loadingService.show();
+}
+
   ngOnInit(): void {
-    this.loadingService.show();
+    
     this.rowKey = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
     this.getTese()
   }
@@ -103,11 +108,14 @@ export class QuestionarioComponent implements OnInit {
       next: (response) => {
         if (response.isSuccess) {
           this.tese = response.result
+          this.snackbarService.notificationSuccess("Questionario Salvo com sucesso!")
         }
         this.loadingService.hide();
       }, error: (err) => {
         console.log(err)
+        this.snackbarService.notificationError(err);
         this.busy = false;
+        this.loadingService.hide();
       },
     })
   }

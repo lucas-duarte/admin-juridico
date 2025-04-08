@@ -72,7 +72,7 @@ export class RegraComponent {
     return this.fb.group({
       campo: ['', Validators.required],
       operador: ['', Validators.required],
-      valor: ['', Validators.required],
+      valor: [''],
       condicao: ['']
     });
   }

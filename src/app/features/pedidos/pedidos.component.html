@@ -9,6 +9,7 @@
         [showRefreshButton]="true"
         [showAddButton]="true"
         (refresh)="getTeses()"
+        (addNew)="openCreatePedidoDialog()"
         (rowClick)="navigateToTese($event)"
         (pageChange)="onPageChange($event)"
         (sortChange)="onSortChange($event)"

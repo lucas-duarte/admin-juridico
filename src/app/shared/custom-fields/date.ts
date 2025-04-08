@@ -27,6 +27,7 @@ import { MatInputModule } from '@angular/material/input';
              [formControl]="formControl"
              [formlyAttributes]="field"
              [mask]="'00/00/0000'"
+             [dropSpecialCharacters]="false"
              [placeholder]="placeholder">
       <mat-hint>{{ description }}</mat-hint>
     </mat-form-field>

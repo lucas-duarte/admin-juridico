@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ResultResponse } from '../../models/result-response';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,14 @@ export class SnackbarService {
     });
   }
 
+  notificationError(response: ResponseError, type: string = 'app-notification-error') {
+    console.log(response)
+    this.snackBar.open(response.error.error.errorMessage, undefined, {
+      panelClass: type,
+      duration: 3000
+    });
+  }
+
   simpleMessageError(message: string, type: string = 'app-notification-error') {
     this.snackBar.open(message, undefined, {
       panelClass: type,
@@ -28,5 +37,19 @@ export class SnackbarService {
       panelClass: type,
       duration: 3000
     });
+  }
+}
+
+
+interface ResponseError {
+  isSuccess: boolean
+  error: Error
+}
+
+interface Error {
+  error: {
+    errorCode: string
+    errorMessage: string
+    additionalInformation: any[]
   }
 }

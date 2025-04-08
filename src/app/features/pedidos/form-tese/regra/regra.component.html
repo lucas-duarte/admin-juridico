@@ -12,6 +12,7 @@
         <mat-form-field class="m-1 w-100">
           <mat-label>Campo</mat-label>
           <mat-select formControlName="campo">
+            <mat-option></mat-option>
             <mat-option *ngFor="let campo of campos" [value]="campo">
               {{ campo.rowKey | camelCaseToWords }}
             </mat-option>
@@ -21,6 +22,7 @@
         <mat-form-field class="m-1 w-100">
           <mat-label>Operador</mat-label>
           <mat-select formControlName="operador">
+            <mat-option></mat-option>
             <mat-option *ngFor="let op of operadores" [value]="op.value">{{
               op.label
             }}</mat-option>
@@ -31,6 +33,7 @@
             <mat-label>Valor</mat-label>          
             <ng-container *ngIf="filtro.get('campo')?.value?.fieldType?.config?.type === 'radio'; else inputDefault">
               <mat-select formControlName="valor">
+                <mat-option></mat-option>
                 <mat-option *ngFor="let opc of filtro.get('campo')?.value?.fieldType?.config?.props?.options" [value]="opc.value">
                   {{ opc.label }}
                 </mat-option>
@@ -44,6 +47,7 @@
         <mat-form-field class="m-1 w-75" *ngIf="i < filtros.length - 1">
           <mat-label>Condição</mat-label>
           <mat-select formControlName="condicao">
+            <mat-option></mat-option>
             <mat-option *ngFor="let cond of condicoes" [value]="cond.value">{{
               cond.label
             }}</mat-option>
@@ -53,7 +57,7 @@
           mat-icon-button
           color="warn"
           (click)="removerFiltro(i)"
-          *ngIf="filtros.length > 1"
+          *ngIf="filtros.length > 0"
           class="mt-2"
         >
           <mat-icon>delete</mat-icon>

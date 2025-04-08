@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { LoadingService } from '../../core/services/loading/loading.service';
 
 @Component({
   selector: 'app-loading',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './loading.component.scss'
 })
 export class LoadingComponent {
-
+  readonly loadingService = inject(LoadingService);
 }

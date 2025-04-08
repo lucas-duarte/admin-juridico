@@ -42,6 +42,7 @@ export class PreviewComponent implements OnInit {
   readonly toolbarService = inject(ToolbarService);
 
   ngOnInit(): void {
+    this.loadingService.show();
     this.rowKey = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
     this.getTese();
   }
@@ -82,8 +83,10 @@ export class PreviewComponent implements OnInit {
   openDialogPreview(value: any): void {
     const dialogRef = this.dialog.open(DialogPreviewComponent, {
       data: value,
-      maxWidth: '100%',
-      width: '50vw',
+      width: '80vw',
+      maxWidth: '100vw',
+      height: 'auto',
+      maxHeight: '100vh',
       panelClass: 'p-5'
     });
 
@@ -96,19 +99,20 @@ export class PreviewComponent implements OnInit {
   }
 
   submit(model: any) {
-
-    this.loadingService.show();
-
+console.log(model)
+    this.loadingService.show("Gerando pedido");    
     this.teseService.preview(this.rowKey, model).subscribe({
       next: (response) => {
-        if(response.isSuccess){
+        console.log(response)
+        if(response){
           this.loadingService.hide();
-          this.openDialogPreview(response.result)
+          this.openDialogPreview(response)
         }
       },
       error: (response) => {
-        this.snackbarService.simpleMessageError(response.error.error.errorMessage)
+        console.log(response)
         this.loadingService.hide();
+        this.snackbarService.simpleMessageError(response.error)
       },
     })
   }

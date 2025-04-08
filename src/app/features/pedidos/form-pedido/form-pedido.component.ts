@@ -19,6 +19,7 @@ import { FormBuilderService } from '../../../core/services/form-builder/form-bui
 import { ToolbarService } from '../../../core/services/toolbar/toolbar.service';
 import { PreviewComponent } from '../preview/preview.component';
 import { LoadingService } from '../../../core/services/loading/loading.service';
+import { SnackbarService } from '../../../core/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-form-pedido',
@@ -34,9 +35,19 @@ export class FormPedidoComponent implements OnInit {
   editTitle = false;
   busy = false;
 
-  constructor(private teseService: TeseService, private activeRoute: ActivatedRoute, private formBuilder: FormBuilder, private dialog: MatDialog, private formBuilderService: FormBuilderService, private toolbarService: ToolbarService, private router: Router, private loadingService: LoadingService) {
+  constructor(
+    private teseService: TeseService,
+    private activeRoute: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog,
+    private formBuilderService: FormBuilderService,
+    private toolbarService: ToolbarService,
+    private router: Router,
+    private loadingService: LoadingService,
+    private snackbarService: SnackbarService
+  ) {
     this.loadingService.show();
-   }
+  }
 
   ngOnInit(): void {
     this.onInitForm();
@@ -74,7 +85,7 @@ export class FormPedidoComponent implements OnInit {
         }
 
         this.loadingService.hide();
-      }, error: (err) =>  {
+      }, error: (err) => {
         console.log(err)
         this.loadingService.hide();
       },
@@ -130,7 +141,7 @@ export class FormPedidoComponent implements OnInit {
   navigateToQuestionario(): void {
     this.router.navigate(['questionario', this.rowKey])
   }
-  
+
   navigateToPreview(): void {
     this.loadingService.show();
     this.router.navigate(['preview', this.rowKey])
@@ -145,15 +156,19 @@ export class FormPedidoComponent implements OnInit {
       publicado: this.publicado
     }
 
+    console.log(data)
+
     this.busy = true;
     this.teseService.update(this.rowKey, data).subscribe({
       next: (response) => {
         if (response.isSuccess) {
           this.tese = response.result
+          this.snackbarService.notificationSuccess("Pedido atualizado com sucesso!")
         }
         this.busy = false;
       }, error: (err) => {
         console.log(err)
+        this.snackbarService.notificationError(err)
         this.busy = false;
       },
     })
